@@ -2,7 +2,9 @@ package com.dimas519.storescheduling;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -13,40 +15,41 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import com.dimas519.storescheduling.Code.Pages;
 import com.dimas519.storescheduling.Code.Permission;
 import com.dimas519.storescheduling.databinding.ActivityMainBinding;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentResultListener {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Permission permission;
 
     private ActivityMainBinding binding;
+    private Fragment[] fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding=ActivityMainBinding.inflate(getLayoutInflater());
+        this.fm=getSupportFragmentManager();
 
         //check permission
         this.permission=new Permission();
         this.permission.checkPermission(this,1);
 
+        this.fragments=new Fragment[Pages.numOfPages];
+        this.fragments[Pages.Main_Page]=new MainFragment();
+        this.changePage(Pages.Main_Page);
 
 
 
-        this.fm=getSupportFragmentManager();
 
-        MainFragment mf=new MainFragment();
-
-        this.ft=this.fm.beginTransaction();
-        this.ft.add(this.binding.FragmentFrame.getId(), mf, null);
-        this.ft.commit();
+        ft=fm.beginTransaction();
 
 
-
+        fm.setFragmentResultListener("show result", this,this);
 
         setContentView(this.binding.getRoot());
     }
@@ -54,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//        Uri uri = Uri.fromParts("package", getPackageName(), null);
-//        intent.setData(uri);
-//        startActivity(intent);
+        if(!permission.isAllEnabled(getApplicationContext())) {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -73,6 +78,33 @@ public class MainActivity extends AppCompatActivity {
                 }
                     Toast.makeText(this, "Please Enable All Permission", Toast.LENGTH_SHORT).show();
                     permission.checkPermission(this, requestCode + 1);
+            }
+        }
+    }
+
+    @Override
+    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+        if(requestKey.equals("show result")){
+            fragments[Pages.resultPage]=Fssp_Fragment.newInstance(result.getString("filePath"));
+            changePage(Pages.resultPage);
+        }
+    }
+
+    private void changePage(int page){
+        this.ft=this.fm.beginTransaction();
+        this.hideOtherFragments(page);
+        if(this.fragments[page].isAdded()) {
+            this.ft.show(this.fragments[page]);
+        }else {
+            this.ft.add(this.binding.FragmentFrame.getId(), this.fragments[page], null);
+        }
+        this.ft.commit();
+    }
+
+    private void hideOtherFragments(int pageToShow){
+        for (int i=0;i<this.fragments.length;i++){
+            if(i!=pageToShow && this.fragments[i]!=null){
+                this.ft.hide(fragments[i]);
             }
         }
     }

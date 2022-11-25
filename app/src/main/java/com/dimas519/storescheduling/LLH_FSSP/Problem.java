@@ -84,7 +84,7 @@ public class Problem {
             }
 
         }catch(IOException ex){
-            System.err.println("File tidak ditemukan ");
+            System.err.println("File tidak ditemukan "+ex.getMessage()+" "+fileName);
         } finally{
             if(br != null){
                 try{

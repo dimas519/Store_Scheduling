@@ -7,7 +7,14 @@ package com.dimas519.storescheduling.LLH_FSSP;/*
  * @author Heni
  */
 
+import com.dimas519.storescheduling.Model.Jobs;
+import com.dimas519.storescheduling.Model.Kerjaan;
+import com.dimas519.storescheduling.Model.Machine;
+
 public class Scheduler {
+    /////////////////////////////////////////////////////////////////////
+    public Jobs jobs;
+    /////////////////////////////////////////////////////////////////////
 
     int [] ordering;
     Problem P;
@@ -15,6 +22,14 @@ public class Scheduler {
 
     public Scheduler (Problem p){
         this.P = p;
+
+        /////////////////////////////////////////////////////////////////////
+        this.jobs=new Jobs();
+        /////////////////////////////////////////////////////////////////////
+    }
+
+    public Jobs getJobs() {
+        return jobs;
     }
 
     private Double abs(double d) {
@@ -22,17 +37,65 @@ public class Scheduler {
     }
 
     void printGanttChart(Slot [][] sch, Schedule sch1){
+
+
+        /////////////////////////////////////////////////////////////////////
+        Kerjaan[] job=new Kerjaan[P.JOB_NUM];
+        /////////////////////////////////////////////////////////////////////
+
+
+
+
         for (int i=0;i<P.JOB_NUM;i++){
+
+
+            /////////////////////////////////////////////////////////////////////
+            Machine machine[]=new Machine[P.MACHINE_NUM];
+            /////////////////////////////////////////////////////////////////////
+
+
             System.out.println("Job ke-"+ sch1.ordering[i]);
             for (int j=0; j<P.MACHINE_NUM; j++) {
+
+
+                /////////////////////////////////////////////////////////////////////
+                machine[j]=new Machine(sch[i][j].start,sch[i][j].finish);
+                /////////////////////////////////////////////////////////////////////
+
+
                 System.out.println("mesin ke-"+j+" ["+sch[i][j].start+","+sch[i][j].finish+"]");
             }
+
+
+            /////////////////////////////////////////////////////////////////////
+            job[i]=new Kerjaan(sch1.ordering[i],machine);
+            /////////////////////////////////////////////////////////////////////
+
+
         }
+
+
+        /////////////////////////////////////////////////////////////////////
+        this.jobs.setJobs(job);
+        /////////////////////////////////////////////////////////////////////
+
+
     }
 
     public void printScheduling(Slot [][] slot, Schedule sch){
+
+
+
         printGanttChart(slot, sch);
+
+
         System.out.println("Makespan = "+sch.getMakeSpan());
+
+        /////////////////////////////////////////////////////////////////////
+        jobs.setMakeSpan(sch.getMakeSpan());
+        /////////////////////////////////////////////////////////////////////
+
+
     }
 
     Double max(Double d1, Double d2){
@@ -497,7 +560,7 @@ public class Scheduler {
         }
         Scheduling = getScheduling (P, sch);
         sch.setMakeSpan(Scheduling[P.JOB_NUM-1][P.MACHINE_NUM-1].finish);
-//        this.printScheduling(Scheduling, sch);
+        this.printScheduling(Scheduling, sch);
         return sch;
     }
 
@@ -658,7 +721,7 @@ public class Scheduler {
         }
         Scheduling = getScheduling (P, sch);
         sch.setMakeSpan(Scheduling[P.JOB_NUM-1][P.MACHINE_NUM-1].finish);
-//        this.printScheduling(Scheduling, sch);
+        this.printScheduling(Scheduling, sch);
         return sch;
     }
     // ------------------------------------------------------------------------
@@ -789,6 +852,7 @@ public class Scheduler {
 
             Schedule sch = new Schedule (i, P.JOB_NUM);
 
+
             // menyalin apa ini?
             // ord menyimpan urutan job di setiap mesin sesuai dengan ordS
             // ordS input parameter
@@ -873,6 +937,11 @@ public class Scheduler {
             ordUpdate(ordS, i, opt.ordering[i]);    // update urutan per mesin
         }
         opt.setMakeSpan(Scheduling[P.JOB_NUM-1][P.MACHINE_NUM-1].finish);
+
+
+        /////////////////////////////////////////////////////////////////////
+        this.printScheduling(Scheduling, opt);
+        /////////////////////////////////////////////////////////////////////
 
         return opt;
     }
