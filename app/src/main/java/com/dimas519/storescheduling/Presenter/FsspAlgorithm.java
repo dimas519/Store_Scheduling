@@ -1,6 +1,5 @@
 package com.dimas519.storescheduling.Presenter;
 
-import android.app.Activity;
 
 import com.dimas519.storescheduling.LLH_FSSP.FSSP;
 import com.dimas519.storescheduling.Model.Jobs;
@@ -8,9 +7,9 @@ import com.dimas519.storescheduling.iFSSPAdapter;
 
 
 public class FsspAlgorithm implements iFSSPAlgorithm  {
-    private int algorithm;
+    private final int algorithm;
     private Jobs jobs;
-    private iFSSPAdapter ia;
+    private final iFSSPAdapter ia;
 
 
 

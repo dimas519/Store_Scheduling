@@ -2,6 +2,7 @@ package com.dimas519.storescheduling;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import com.dimas519.storescheduling.databinding.FragmentFsspBinding;
 public class Fssp_Fragment extends Fragment {
     private static final String ARG_FILEPATH = "filePath";
     private String filePath;
-    private FragmentFsspBinding binding;
 
     public Fssp_Fragment() {
         // Required empty public constructor
@@ -40,9 +40,9 @@ public class Fssp_Fragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.binding=FragmentFsspBinding.inflate(inflater);
+        com.dimas519.storescheduling.databinding.FragmentFsspBinding binding = FragmentFsspBinding.inflate(inflater);
 
         FsspAdapter adapter=new FsspAdapter(this);
 
@@ -58,8 +58,6 @@ public class Fssp_Fragment extends Fragment {
         };
 
         adapter.setArray(fsspAlgorithms);
-
-
         binding.lvResult.setAdapter(adapter);
 
 

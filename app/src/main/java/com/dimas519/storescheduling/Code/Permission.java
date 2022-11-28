@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class Permission {
     //diperlukan karena android 11 hanya akan prompt 2x (2x nolak)
-    private ArrayList<String> deniedByUser=new ArrayList<>();
+    private final ArrayList<String> deniedByUser=new ArrayList<>();
 
-    private String[] allPermission={
+    private final String[] allPermission={
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 

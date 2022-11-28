@@ -15,10 +15,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Code.Pages;
 import com.dimas519.storescheduling.Code.Permission;
+import com.dimas519.storescheduling.Model.Jobs;
 import com.dimas519.storescheduling.databinding.ActivityMainBinding;
+import com.google.gson.Gson;
 
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentResultListener {
@@ -29,11 +33,14 @@ public class MainActivity extends AppCompatActivity implements FragmentResultLis
     private ActivityMainBinding binding;
     private Fragment[] fragments;
 
+    private Gson gson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding=ActivityMainBinding.inflate(getLayoutInflater());
         this.fm=getSupportFragmentManager();
+        this.gson=new Gson();
 
         //check permission
         this.permission=new Permission();
@@ -46,10 +53,12 @@ public class MainActivity extends AppCompatActivity implements FragmentResultLis
 
 
 
-        ft=fm.beginTransaction();
+        this.ft=this.fm.beginTransaction();
+
+        this.fm.setFragmentResultListener("show result", this,this);
+        this.fm.setFragmentResultListener("show details", this,this);
 
 
-        fm.setFragmentResultListener("show result", this,this);
 
         setContentView(this.binding.getRoot());
     }
@@ -87,6 +96,13 @@ public class MainActivity extends AppCompatActivity implements FragmentResultLis
         if(requestKey.equals("show result")){
             fragments[Pages.resultPage]=Fssp_Fragment.newInstance(result.getString("filePath"));
             changePage(Pages.resultPage);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.resultTitle);
+        }else if(requestKey.equals("show details")){
+            String json=result.getString("result");
+            Jobs jobs=gson.fromJson(json,Jobs.class);
+            fragments[Pages.detailPages]=new ResultFragment(jobs);
+            changePage(Pages.detailPages);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(Algorithm.getAlgorithm(result.getInt("algorithm"))+" Result");
         }
     }
 

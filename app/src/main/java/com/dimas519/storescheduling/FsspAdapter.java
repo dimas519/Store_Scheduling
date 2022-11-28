@@ -1,17 +1,26 @@
 package com.dimas519.storescheduling;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Model.Jobs;
 import com.dimas519.storescheduling.Presenter.FsspAlgorithm;
 import com.dimas519.storescheduling.databinding.FsspItemBinding;
+import com.google.gson.Gson;
+
 
 public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
     private FsspAlgorithm[] fsspAlgorithms;
     private Fssp_Fragment ff;
+
+    //tester
+    private Gson gson;
 
     public FsspAdapter(Fssp_Fragment ff){
         this.ff=ff;
@@ -38,24 +47,46 @@ public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
         return i;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        FsspItemBinding binding=FsspItemBinding.inflate(ff.getLayoutInflater());
+        FsspItemBinding binding=FsspItemBinding.inflate(this.ff.getLayoutInflater());
+
+        if(gson==null) {
+            gson = new Gson();
+        }
+
+
         binding.algorithm.setText(Algorithm.getAlgorithm(getItem(i).getAlgorithm()));
         Jobs x=getItem(i).getJobs();
         if(x!=null){
-            System.out.println("berhasil "+x.getMakeSpan());
             binding.resultSpan.setText("Make Span: "+getItem(i).getJobs().getMakeSpan());
-        }
 
+
+
+            binding.itemsAlgo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Bundle bundle=new Bundle();
+                    String test= gson.toJson(x);
+                    bundle.putString("result",test);
+                    bundle.putInt("algorithm",getItem(i).getAlgorithm());
+
+
+                   ff.getParentFragmentManager().setFragmentResult("show details", bundle);
+
+                }
+            });
+
+
+
+        }
 
 
         return binding.getRoot();
     }
 
-    public void set(){
-
-    }
 
 
     @Override

@@ -1,33 +1,34 @@
 package com.dimas519.storescheduling.Model;
 
+
 public class Jobs {
 
-    protected Kerjaan[] job;
+    protected Kerjaan[] kerjaan;
     protected double makeSpan=-1.0;
 
+
+
     public Jobs(int numberOfJob, double makeSpan){
-        this.job=new Kerjaan[numberOfJob];
+        this.kerjaan=new Kerjaan[numberOfJob];
         this.makeSpan=makeSpan;
     }
 
-    public Jobs(){
-
-    }
+    public Jobs(){}
 
 
 
     public int getNumberOfJob() {
-        return this.job.length;
+        return this.kerjaan.length;
     }
 
 
 
-    public Kerjaan[] getJobs() {
-        return job;
+    public Kerjaan[] getJKerjaan() {
+        return kerjaan;
     }
 
-    public void setJobs(Kerjaan[] job) {
-        this.job = job;
+    public void setKerjaan(Kerjaan[] kerjaan) {
+        this.kerjaan = kerjaan;
     }
 
     public double getMakeSpan() {
@@ -38,3 +39,4 @@ public class Jobs {
         this.makeSpan = makeSpan;
     }
 }
+

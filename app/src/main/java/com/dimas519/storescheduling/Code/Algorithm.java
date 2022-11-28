@@ -2,6 +2,7 @@ package com.dimas519.storescheduling.Code;
 
 
 public class Algorithm {
+    public final static int NumberOfAlgorithm=8;
     public final static int FCFS=1;
     public final static int CDS=2;
     public final static int NEH=3;
