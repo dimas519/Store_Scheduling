@@ -2,11 +2,11 @@ package com.dimas519.storescheduling;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Parcelable;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
+
 
 import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Model.Jobs;
@@ -15,9 +15,10 @@ import com.dimas519.storescheduling.databinding.FsspItemBinding;
 import com.google.gson.Gson;
 
 
+
 public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
     private FsspAlgorithm[] fsspAlgorithms;
-    private Fssp_Fragment ff;
+    private final Fssp_Fragment ff;
 
     //tester
     private Gson gson;
@@ -64,19 +65,16 @@ public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
 
 
 
-            binding.itemsAlgo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            binding.itemsAlgo.setOnClickListener(view1 -> {
 
-                    Bundle bundle=new Bundle();
-                    String test= gson.toJson(x);
-                    bundle.putString("result",test);
-                    bundle.putInt("algorithm",getItem(i).getAlgorithm());
+                Bundle bundle=new Bundle();
+                String test= gson.toJson(x);
+                bundle.putString("result",test);
+                bundle.putInt("algorithm",getItem(i).getAlgorithm());
 
 
-                   ff.getParentFragmentManager().setFragmentResult("show details", bundle);
+               ff.getParentFragmentManager().setFragmentResult("show details", bundle);
 
-                }
             });
 
 
@@ -91,9 +89,7 @@ public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
 
     @Override
     public void notifyChanges() {
-        this.ff.getActivity().runOnUiThread(()->{
-            this.notifyDataSetChanged();
-        });
+        this.ff.requireActivity().runOnUiThread(this::notifyDataSetChanged);
 
     }
 }

@@ -23,7 +23,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Machine Number"
+                    android:text="@string/mesinHeader"
                     android:textSize="20dp"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
-                    android:text="Start"
+                    android:text="@string/startHeader"
                     android:gravity="center"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -57,7 +57,7 @@
                     android:id="@+id/machineNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="End"
+                    android:text="@string/endHeader"
                     android:textSize="20dp"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -86,10 +86,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Job Ke:" />
+                android:text="@string/jobBottom" />
 
             <ImageButton
                 android:id="@+id/btnBack"
+                android:paddingStart="75dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
@@ -132,6 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
+                android:paddingEnd="75dp"
                 android:layout_toEndOf="@id/titleJob"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_next_icon" />

@@ -22,20 +22,31 @@
             android:textSize="15pt"
             android:layout_alignParentLeft="true"/>
 
-        <TextView
-            android:id="@+id/resultSpan"
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Make Span: "
-            android:textSize="8pt"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:ellipsize="none"
-            android:maxLines="100"
-            android:scrollHorizontally="false"
-            />
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spanTItle"
+                android:textSize="9pt"
+                android:scrollHorizontally="false" />
 
+            <TextView
+                android:id="@+id/resultSpan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:ellipsize="none"
+                android:maxLines="1"
+                android:scrollHorizontally="false" />
+
+
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -7,21 +7,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginPage#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.dimas519.storescheduling.Presenter.LoginPresenter;
+import com.dimas519.storescheduling.databinding.FragmentLoginPageBinding;
+
+
 public class LoginPage extends Fragment {
+    private FragmentLoginPageBinding binding;
+    private LoginPresenter presenter;
+
 
     public LoginPage() {
         // Required empty public constructor
     }
 
 
-    public static LoginPage newInstance(String param1, String param2) {
+    public static LoginPage newInstance(LoginPresenter presenter) {
         LoginPage fragment = new LoginPage();
+        fragment.presenter=presenter;
         return fragment;
     }
 
@@ -30,7 +34,31 @@ public class LoginPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login_page, container, false);
+        this.binding=FragmentLoginPageBinding.inflate(inflater);
+
+        this.binding.loginBtn.setOnClickListener( view -> {
+          String username=this.binding.username.getText().toString();
+          String password=this.binding.password.getText().toString();
+
+
+
+          if(!username.equals("") ||  !password.equals("")) {
+
+              boolean loginSuc=this.presenter.Login(username,password);
+
+              if(loginSuc){
+                  getParentFragmentManager().setFragmentResult("login",new Bundle());
+              }else{
+                  Toast.makeText(getContext(), R.string.wrongLogin, Toast.LENGTH_SHORT).show();
+              }
+          }else{
+              Toast.makeText(getContext(), R.string.fillLogin, Toast.LENGTH_SHORT).show();
+          }
+        });
+
+
+
+
+        return this.binding.getRoot();
     }
 }

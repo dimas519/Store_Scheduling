@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_home"
+            android:title="@string/optHome"/>
+        <item
+            android:id="@+id/navPelanggan"
+            android:icon="@drawable/ic_person"
+            android:title="@string/optPelanggan"/>
+
+        <item
+            android:id="@+id/navProduk"
+            android:icon="@drawable/ic_shopping_cart"
+            android:title="@string/optProduk"/>
+
+        <item
+            android:id="@+id/navOrder"
+            android:icon="@drawable/ic_time"
+            android:title="@string/optOrder"/>
+
+        <item
+            android:id="@+id/navSetting"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/optSetting"/>
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="@string/optAbout"/>
+    </group>
+</menu>

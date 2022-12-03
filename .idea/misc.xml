@@ -6,9 +6,15 @@
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.101" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/border.xml" value="0.166" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_back_icon.xml" value="0.102" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.1" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_info.xml" value="0.1" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_launcher_background.xml" value="0.101" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_menu.xml" value="0.1" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/drawable/ic_next_icon.xml" value="0.152" />
-        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/activity_main.xml" value="0.34148550724637683" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/activity_login_page.xml" value="0.25" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/fragment_fssp.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/fragment_fssp_.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/fragment_login_page.xml" value="0.2453125" />
@@ -16,8 +22,11 @@
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/fragment_pelanggan_page.xml" value="0.2453125" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/fragment_result.xml" value="0.25" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/fssp_item.xml" value="0.2078804347826087" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/pelanggan_item.xml" value="0.31302083333333336" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/pelanggan_pop_up_create.xml" value="0.31302083333333336" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/result_item.xml" value="0.176" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/layout/result_item2.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/menu/menu_drawer.xml" value="0.25" />
         <entry key="..\:/Users/Kurni/AndroidStudioProjects/Store_Scheduling/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1045" />
       </map>
     </option>
