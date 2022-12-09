@@ -3,8 +3,6 @@ package com.dimas519.storescheduling;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -16,16 +14,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Code.Pages;
 import com.dimas519.storescheduling.Code.Permission;
+import com.dimas519.storescheduling.Code.PopUp;
 import com.dimas519.storescheduling.Model.Jobs;
-import com.dimas519.storescheduling.Presenter.LoginPresenter;
 import com.dimas519.storescheduling.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -34,13 +30,14 @@ import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity implements
-        FragmentResultListener, View.OnClickListener {
+        FragmentResultListener, NavigationView.OnNavigationItemSelectedListener {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Permission permission;
 
     private ActivityMainBinding binding;
     private Fragment[] fragments;
+    private PageOfList pageOfList;
 
     private Gson gson;
 
@@ -63,19 +60,30 @@ public class MainActivity extends AppCompatActivity implements
         this.fragments=new Fragment[Pages.numOfPages];
 
 
-        this.fragments[Pages.Login_Page]= LoginPage.newInstance(new LoginPresenter());
-        this.changePage(Pages.Login_Page);
-        getSupportActionBar().hide();
+//        this.fragments[Pages.Login_Page]= LoginPage.newInstance(new LoginPresenter());
+//        this.changePage(Pages.Login_Page);
+//        getSupportActionBar().hide();
 
+        //temporary
+        //-------------------------------------------------------------------
+        this.fragments[Pages.Main_Page]=new MainFragment();
+        this.changePage(Pages.Main_Page);
+        getSupportActionBar().show();
+        //-------------------------------------------------------------------
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         this.actionBarDrawerToggle=new ActionBarDrawerToggle(this,this.binding.layout,R.string.endHeader,R.string.createBtn);
+
+
+
         this.binding.layout.addDrawerListener(   this.actionBarDrawerToggle);
 
-        this.actionBarDrawerToggle.setToolbarNavigationClickListener(this);
-
+        this.binding.navView.setNavigationItemSelectedListener(this);
 
         //mengatur action bar dan sandwich
         this.actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         this.ft=this.fm.beginTransaction();
@@ -161,12 +169,31 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onClick(View view) {
-//        if (this.binding.layout.isDrawerOpen(GravityCompat.START)){
-//            this.binding.layout.closeDrawer(GravityCompat.START);
-//        }else{
-//            this.binding.layout.openDrawer((int) Gravity.START);
-//        }
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int clickItem=item.getItemId();
+        if(clickItem==R.id.nav_main){
 
+        }else if(clickItem==R.id.navPelanggan){
+            if(this.pageOfList==null || PageOfList.Title.equals(PopUp.getAlgorithm(PopUp.pelangganPopUp))){
+                this.pageOfList=new PageOfList(PopUp.getAlgorithm(PopUp.pelangganPopUp));
+                this.fragments[Pages.pageOfList]=this.pageOfList;
+            }
+            getSupportActionBar().setTitle(PopUp.getAlgorithm(PopUp.pelangganPopUp));
+        }else {
+
+        }
+
+
+        this.binding.layout.closeDrawers();
+        this.changePage(Pages.pageOfList);
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (this.actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

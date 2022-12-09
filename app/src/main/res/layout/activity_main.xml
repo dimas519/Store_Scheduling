@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/layout">
+    android:id="@+id/layout"
+    android:background="?attr/colorSecondary">
 
     <FrameLayout
         android:id="@+id/FragmentFrame"

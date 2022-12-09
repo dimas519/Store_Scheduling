@@ -17,18 +17,30 @@
 
     <!--fssp item-->
     <string name="spanTItle">Total Waktu</string>
+    <string name="namaTitle">Nama</string>
+    <string name="kontakTitle">Kontak</string>
+    <string name="alamatTitle">Alamat</string>
+    <string name="emailTitle">Email</string>
+    <string name="telpTitle">Telepon</string>
+    <string name="split">:</string>
+    <string name="simpan">Simpan</string>
 
-
+    <!--    Fragment Pelanggan-->
     <string name="createBtn">Create</string>
 
 
-
+    <!--    menu drawer-->
     <string name="optHome">Home</string>
     <string name="optPelanggan">Pelanggan</string>
     <string name="optProduk">Produk</string>
     <string name="optOrder">Pemesanan</string>
     <string name="optSetting">Pengaturan</string>
     <string name="optAbout">About</string>
+
+
+    <!--    pelanggan_modal-->
+    <string name="buatPelanggan">Tambah Pelanggan</string>
+
 
 
 </resources>

@@ -48,13 +48,13 @@ public class Fssp_Fragment extends Fragment {
 
         FsspAlgorithm[] fsspAlgorithms={
                 new FsspAlgorithm(Algorithm.FCFS,this.filePath,adapter)
-                ,new FsspAlgorithm(Algorithm.CDS,this.filePath,adapter)
+//                ,new FsspAlgorithm(Algorithm.CDS,this.filePath,adapter)
                 ,new FsspAlgorithm(Algorithm.NEH,this.filePath,adapter)
-                ,new FsspAlgorithm(Algorithm.PALMER,this.filePath,adapter)
-                ,new FsspAlgorithm(Algorithm.GUPTA,this.filePath,adapter)
-                ,new FsspAlgorithm(Algorithm.DANNENBRING,this.filePath,adapter)
-                ,new FsspAlgorithm(Algorithm.POUR,this.filePath,adapter)
-                ,new FsspAlgorithm(Algorithm.MOD,this.filePath,adapter)
+//                ,new FsspAlgorithm(Algorithm.PALMER,this.filePath,adapter)
+//                ,new FsspAlgorithm(Algorithm.GUPTA,this.filePath,adapter)
+//                ,new FsspAlgorithm(Algorithm.DANNENBRING,this.filePath,adapter)
+//                ,new FsspAlgorithm(Algorithm.POUR,this.filePath,adapter)
+//                ,new FsspAlgorithm(Algorithm.MOD,this.filePath,adapter)
         };
 
         adapter.setArray(fsspAlgorithms);
