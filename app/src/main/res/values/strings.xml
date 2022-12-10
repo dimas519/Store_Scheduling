@@ -41,6 +41,12 @@
     <!--    pelanggan_modal-->
     <string name="buatPelanggan">Tambah Pelanggan</string>
 
+<!--    produk modal-->
+    <string name="buatProduk">Tambah Produk</string>
+    <string name="kodeProduk">Kode Produk</string>
+    <string name="namaProduk"> Nama Produk</string>
+    <string name="timeProduk">Waktu Proses produk</string>
 
+<!--    produk item-->
 
 </resources>

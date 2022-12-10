@@ -1,4 +1,4 @@
-package com.dimas519.storescheduling;
+package com.dimas519.storescheduling.View.FSSP.Result;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

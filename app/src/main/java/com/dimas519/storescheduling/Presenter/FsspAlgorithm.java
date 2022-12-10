@@ -3,15 +3,13 @@ package com.dimas519.storescheduling.Presenter;
 
 import com.dimas519.storescheduling.LLH_FSSP.FSSP;
 import com.dimas519.storescheduling.Model.Jobs;
-import com.dimas519.storescheduling.iFSSPAdapter;
+import com.dimas519.storescheduling.View.FSSP.iFSSPAdapter;
 
 
 public class FsspAlgorithm implements iFSSPAlgorithm  {
     private final int algorithm;
     private Jobs jobs;
     private final iFSSPAdapter ia;
-
-
 
 
     public FsspAlgorithm(int algorithm,String file,iFSSPAdapter ia){

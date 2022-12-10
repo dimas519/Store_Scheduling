@@ -21,7 +21,14 @@ import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Code.Pages;
 import com.dimas519.storescheduling.Code.Permission;
 import com.dimas519.storescheduling.Code.PopUp;
+import com.dimas519.storescheduling.Database.database;
 import com.dimas519.storescheduling.Model.Jobs;
+import com.dimas519.storescheduling.Model.Pelanggan;
+import com.dimas519.storescheduling.Model.Produk;
+import com.dimas519.storescheduling.View.FSSP.Fssp_Fragment;
+import com.dimas519.storescheduling.View.FSSP.Result.ResultFragment;
+import com.dimas519.storescheduling.View.Pelanggan.PenggunaList;
+import com.dimas519.storescheduling.View.Produk.ProdukList;
 import com.dimas519.storescheduling.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -31,30 +38,39 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements
         FragmentResultListener, NavigationView.OnNavigationItemSelectedListener {
+
+
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Permission permission;
 
     private ActivityMainBinding binding;
     private Fragment[] fragments;
-    private PageOfList pageOfList;
-
-    private Gson gson;
 
 
-    private NavigationView navigationView;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
+    public static Gson gson;
+
+
+    private database db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding=ActivityMainBinding.inflate(getLayoutInflater());
-        this.fm=getSupportFragmentManager();
-        this.gson=new Gson();
+
+
 
         //check permission
         this.permission=new Permission();
         this.permission.checkPermission(this,1);
+
+        //init-init
+        this.fm=getSupportFragmentManager();
+        this.gson=new Gson();
+        this.db=new database(getApplicationContext());
+
 
         //
         this.fragments=new Fragment[Pages.numOfPages];
@@ -91,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements
         this.fm.setFragmentResultListener("show result", this,this);
         this.fm.setFragmentResultListener("show details", this,this);
         this.fm.setFragmentResultListener("login", this,this);
+        this.fm.setFragmentResultListener("savePelanggan",this,this);
+        this.fm.setFragmentResultListener("saveProduk",this,this);
 
 
 
@@ -128,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
         if(requestKey.equals("show result")){
-            fragments[Pages.resultPage]=Fssp_Fragment.newInstance(result.getString("filePath"));
+            fragments[Pages.resultPage]= Fssp_Fragment.newInstance(result.getString("filePath"));
             changePage(Pages.resultPage);
             Objects.requireNonNull(getSupportActionBar()).setTitle("Algorithm Result");
         }else if(requestKey.equals("show details")){
@@ -137,15 +155,27 @@ public class MainActivity extends AppCompatActivity implements
             fragments[Pages.detailPages]=new ResultFragment(jobs);
             changePage(Pages.detailPages);
             Objects.requireNonNull(getSupportActionBar()).setTitle(Algorithm.getAlgorithm(result.getInt("algorithm"))+" Result");
-        }else if(requestKey.equals("login")){
-            this.fragments[Pages.Main_Page]=new MainFragment();
+        }else if(requestKey.equals("login")) {
+            this.fragments[Pages.Main_Page] = new MainFragment();
             this.changePage(Pages.Main_Page);
             getSupportActionBar().show();
-
-
-
-
+        }else if(requestKey.equals("savePelanggan")){
+            String strPelanggan=result.getString("data");
+            Pelanggan pelanggan=gson.fromJson(strPelanggan,Pelanggan.class);
+            this.db.insertPelanggan(pelanggan);
+            ((PenggunaList) this.fragments[Pages.pagesListPengguna]).addItem(pelanggan);
+            this.changePage(Pages.pagesListPengguna);
+        }else if(requestKey.equals("saveProduk")){
+            String strProduk=result.getString("data");
+            Produk produk=gson.fromJson(strProduk,Produk.class);
+            this.db.insertProduk(produk);
+            ((ProdukList) this.fragments[Pages.pagesListProduk]).addItem(produk);
+            this.changePage(Pages.pagesListProduk);
         }
+
+
+
+
     }
 
     private void changePage(int page){
@@ -172,20 +202,31 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int clickItem=item.getItemId();
         if(clickItem==R.id.nav_main){
-
+            this.changePage(Pages.Main_Page);
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Penjadwalan Produksi");
         }else if(clickItem==R.id.navPelanggan){
-            if(this.pageOfList==null || PageOfList.Title.equals(PopUp.getAlgorithm(PopUp.pelangganPopUp))){
-                this.pageOfList=new PageOfList(PopUp.getAlgorithm(PopUp.pelangganPopUp));
-                this.fragments[Pages.pageOfList]=this.pageOfList;
+            if(this.fragments[Pages.pagesListPengguna]==null ){
+                this.fragments[Pages.pagesListPengguna]=new PenggunaList(this.db.getPelanggan());
             }
-            getSupportActionBar().setTitle(PopUp.getAlgorithm(PopUp.pelangganPopUp));
-        }else {
+            Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.pelangganPopUp));
+            this.changePage(Pages.pagesListPengguna );
+        }else if(clickItem==R.id.navProduk) {
+            if(this.fragments[Pages.pagesListProduk]==null){
+                this.fragments[Pages.pagesListProduk]=new ProdukList(this.db.getProduk());
+            }
+            Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.produkpopUp));
+            this.changePage(Pages.pagesListProduk);
+        } else if (clickItem==R.id.navOrder){
+
+        }else if(clickItem==R.id.navSetting){
+
+        }else if(clickItem==R.id.nav_about){
 
         }
 
 
         this.binding.layout.closeDrawers();
-        this.changePage(Pages.pageOfList);
+
         return false;
     }
 

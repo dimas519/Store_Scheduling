@@ -1,4 +1,4 @@
-package com.dimas519.storescheduling;
+package com.dimas519.storescheduling.View.FSSP.Result;
 
 import android.annotation.SuppressLint;
 
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dimas519.storescheduling.Model.Machine;
+import com.dimas519.storescheduling.R;
 
 
 public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAdapter.ViewHolder>{
@@ -32,7 +33,6 @@ public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        System.out.println("testdd"+position);
         holder.setData(this.machine[position]);
     }
 
@@ -45,7 +45,7 @@ public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAd
 
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView machineNumber;
         private final TextView startTime;
@@ -56,8 +56,6 @@ public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAd
             this.machineNumber=view.findViewById(R.id.machineNumber);
             this.startTime=view.findViewById(R.id.startTime);
             this.endTime=view.findViewById(R.id.endTime);
-
-
         }
 
         @SuppressLint("SetTextI18n")
@@ -65,7 +63,6 @@ public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAd
             this.machineNumber.setText(currMachine.getId()+"");
             this.startTime.setText(currMachine.getStart()+"");
             this.endTime.setText(currMachine.getEnd()+"");
-
         }
     }
 

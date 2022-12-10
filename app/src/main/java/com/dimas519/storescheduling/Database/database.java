@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.dimas519.storescheduling.Model.Pelanggan;
+import com.dimas519.storescheduling.Model.Produk;
+
 import java.util.ArrayList;
 
 
-public class dbMovies extends SQLiteOpenHelper {
+public class database extends SQLiteOpenHelper {
     private static int DB_version=7;
     private static String DB_name="lisTify.db";
 
@@ -22,7 +25,7 @@ public class dbMovies extends SQLiteOpenHelper {
     private static  final String CREATE_TABLE_PELANGGAN= "CREATE TABLE "+pelangganTable+
             " ( ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
             "NAMA TEXT , " +
-            "KOBTAK TEXT  , " +
+            "KONTAK TEXT  , " +
             "ALAMAT TEXT , " +
             "EMAIL TEXT , " +
             "TELEPON TEXT )";
@@ -31,13 +34,13 @@ public class dbMovies extends SQLiteOpenHelper {
             " ( ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
             "Kode_PRODUK TEXT , " +
             "NAMA_PRODUK TEXT ," +
-            "Waktu_PROSES TEXT )";
+            "WAKTU_PRODUK TEXT )";
 
     private static final String CREATE_TABLE_PROSES= "CREATE TABLE "+prosesTable +
             " ( ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
             "KODE_PROSES TEXT , " +
             "NAMA_PRODUK TEXT ," +
-            "Waktu_PROSES TEXT )";
+            "WAKTU_PROSES TEXT )";
 
     private static final String CREATE_TABLE_LOG="CREATE TABLE Log ("+
             "ID INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -47,7 +50,7 @@ public class dbMovies extends SQLiteOpenHelper {
             "TANGGAL DATETIME DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime'))" +
             ")";
 
-    public dbMovies(Context context){
+    public database(Context context){
         super(context,DB_name,null,DB_version);
     }
 
@@ -81,48 +84,85 @@ public class dbMovies extends SQLiteOpenHelper {
 
     }
 
-//    public void insertDataMovies(MoviesModel movie){
-//        String judul=movie.getJudul();
-//        int bintang =movie.getBintang();
-//        int status=movie.getStatusData();
-//        String synopsis= movie.getSynopsis();
-//        String comment=movie.getComment();
-//        String foto=movie.getFoto();
-//        SQLiteDatabase db=this.getWritableDatabase();
-//        ContentValues newData=new ContentValues();
-//        newData.put("JUDUL",judul);
-//        newData.put("BINTANG",bintang);
-//        newData.put("STATUS",status);
-//        newData.put("SYNOPSIS",synopsis);
-//        newData.put("COMMENT",comment);
-//        newData.put("FOTO",foto);
-//        db.insert("Movies",null,newData);
-//        insertLog(0,0,judul);
-//
-//    }
-//    public void insertDataSeries(SeriesModel series){
-//        String judul=series.getJudul();
-//        int bintang =series.getBintang();
-//        int status=series.getStatusData();
-//        String synopsis= series.getSynopsis();
-//        String comment=series.getComment();
-//        int episode=series.getNumber_episode();
-//        String foto=series.getFoto();
-//        SQLiteDatabase db=this.getWritableDatabase();
-//        ContentValues newData=new ContentValues();
-//        newData.put("JUDUL",judul);
-//        newData.put("BINTANG",bintang);
-//        newData.put("STATUS",status);
-//        newData.put("SYNOPSIS",synopsis);
-//        newData.put("COMMENT",comment);
-//        newData.put("NUM_EPISODE",episode);
-//        newData.put("FOTO",foto);
-//        db.insert("Series",null,newData);
-//
-//        int insertedIndex= getLastIDInserted();
-//        insertEpisode(insertedIndex,episode);
-//        insertLog(0,1,judul);
-//    }
+    public void insertPelanggan(Pelanggan movie){
+        String nama=movie.getNama();
+        String kontak =movie.getKontak();
+        String alamat=movie.getAlamat();
+        String email= movie.getEmail();
+        String telepon=movie.getTelepon();
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues newData=new ContentValues();
+        newData.put("NAMA",nama);
+        newData.put("KONTAK",kontak);
+        newData.put("ALAMAT",alamat);
+        newData.put("EMAIL",email);
+        newData.put("TELEPON",telepon);
+        db.insert(pelangganTable,null,newData);
+    }
+
+        public ArrayList<Pelanggan> getPelanggan(){
+        String query ="SELECT * FROM  "+pelangganTable+" ORDER BY ID DESC";
+        SQLiteDatabase db= this.getWritableDatabase();
+        Cursor c =db.rawQuery(query,null);
+
+
+        ArrayList <Pelanggan> arr=new ArrayList<>();
+
+            if(c.moveToFirst()) {
+            do {
+                int id=c.getInt(0);
+                String NAMA=c.getString(1);
+                String KONTAK=c.getString(2);
+                String ALAMAT=c.getString(3);
+                String EMAIL=c.getString(4);
+                String TELEPON=c.getString(4);
+
+
+                arr.add(new Pelanggan(id,NAMA,KONTAK,ALAMAT,EMAIL,TELEPON));
+            } while (c.moveToNext());
+        }
+
+
+        return arr;
+    }
+
+
+    public void insertProduk(Produk series){
+        String kode=series.getKode();
+        String nama =series.getNama();
+        int waktu=series.getWaktu();
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues newData=new ContentValues();
+        newData.put("Kode_PRODUK",kode);
+        newData.put("NAMA_PRODUK",nama);
+        newData.put("WAKTU_PRODUK",waktu);
+        db.insert(produkTable,null,newData);
+    }
+
+    public ArrayList<Produk> getProduk(){
+        String query ="SELECT * FROM "+produkTable;
+        SQLiteDatabase db= this.getWritableDatabase();
+        Cursor c =db.rawQuery(query,null);
+        ArrayList <Produk> arr=new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(c.getString(0));
+                String kode = c.getString(1);
+                String nama = c.getString(2);
+                int waktu=c.getInt(3);
+                Produk x = new Produk(id, kode, nama,waktu);
+
+                arr.add(x);
+            } while (c.moveToNext());
+        }
+        System.out.println(arr.size());
+        return arr;
+    }
+
+
+
+
 //
 //    public void insertEpisode(int fkSeries, int numberEpisode){
 //        SQLiteDatabase db=this.getWritableDatabase();
@@ -165,35 +205,7 @@ public class dbMovies extends SQLiteOpenHelper {
 //        }
 //        return arr;
 //    }
-//
-//    public ArrayList <SeriesModel> converttoArraySeries(Cursor c){
-//        ArrayList <SeriesModel> arr=new ArrayList<>();
-//        if(c.moveToFirst()) {
-//            do {
-//                int id = Integer.parseInt(c.getString(0));
-//                String judul = c.getString(1);
-//                int bintang = Integer.parseInt(c.getString(2));
-//                int status = Integer.parseInt(c.getString(3));
-//                String synopsis = c.getString(4);
-//                String comments = c.getString(5);
-//                int numberEpisode=c.getInt(6);
-//                String foto=c.getString(7);
-//                SeriesModel x=new SeriesModel(id,judul,bintang,status,synopsis,comments,numberEpisode,foto);
-//
-//                arr.add(x);
-//            } while (c.moveToNext());
-//        }
-//        return arr;
-//    }
-//
-//    public ArrayList<MoviesModel> getDataMovies(String comand){
-//        String query = this.SELECT_ALL_QUERY + comand;
-//        SQLiteDatabase db= this.getWritableDatabase();
-//        Cursor c =db.rawQuery(query,null);
-//        ArrayList <MoviesModel> arr=converttoArrayMovies(c);
-//        return arr;
-//    }
-//
+
 //    public ArrayList<EpisodeModel> getEpisodeData(int fk){
 //        String query="SELECT * FROM Episode WHERE FKSERIES = "+fk+" ORDER BY 'JUDUL' ASC";
 //        SQLiteDatabase db= this.getWritableDatabase();
@@ -237,24 +249,8 @@ public class dbMovies extends SQLiteOpenHelper {
 //        insertLog(2,idTable,getJudul(table,id));
 //    }
 //
-//    public ArrayList<SeriesModel> getDataSerires(String command){
-//        String query = this.SELECT_ALL_QUERY_SERIES + command;
-//        SQLiteDatabase db= this.getWritableDatabase();
-//        Cursor c =db.rawQuery(query,null);
-//        ArrayList <SeriesModel> arr=converttoArraySeries(c);
-//        return arr;
-//
-//    }
-//
-//    public void insertLog(int aksi,int table,String judul){
-//        ContentValues cv=new ContentValues();
-//        cv.put("AKSI",aksi);
-//        cv.put("JUDUL",judul);
-//        cv.put("TABEL",table);
-//
-//        SQLiteDatabase db=this.getWritableDatabase();
-//        Long d=db.insert("Log",null,cv);
-//    }
+
+
 //
 //    public String getJudul(String table, int id){
 //        String query="SELECT JUDUL FROM "+ table+" WHERE ID = "+ id;
@@ -266,28 +262,6 @@ public class dbMovies extends SQLiteOpenHelper {
 //        return "";
 //    }
 //
-//    public ArrayList<logModel> getDataLog(){
-//        String query="SELECT * FROM Log";
-//        SQLiteDatabase db= this.getWritableDatabase();
-//        Cursor c =db.rawQuery(query,null);
-//        return convertdbToArray(c);
-//    }
-//
-//
-//    public ArrayList<logModel> convertdbToArray(Cursor c){
-//        ArrayList <logModel> arr=new ArrayList<>();
-//        if(c.moveToFirst()) {
-//            do {
-//                int aksi=c.getInt(1);
-//                String judul=c.getString(2);
-//                int table=c.getInt(3);
-//                String tanggal=c.getString(4);
-//                logModel x= new logModel(aksi,judul,table,tanggal);
-//                arr.add(x);
-//            } while (c.moveToNext());
-//        }
-//        return arr;
-//    }
 
 
 }

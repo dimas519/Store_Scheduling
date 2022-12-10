@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fssp_Fragment">
+    tools:context=".View.FSSP.Fssp_Fragment">
 
     <ListView
         android:id="@+id/lvResult"

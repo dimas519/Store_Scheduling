@@ -18,27 +18,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/namaTitle"/>
+            android:text="@string/kodeProduk"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/kontakTitle"/>
+            android:text="@string/namaProduk"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/alamatTitle"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/emailTitle"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/telpTitle"/>
+            android:text="@string/timeProduk"/>
 
     </LinearLayout>
 
@@ -63,15 +53,6 @@
             android:layout_height="wrap_content"
             android:text="@string/split"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/split"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/split"/>
 
     </LinearLayout>
 
@@ -82,29 +63,20 @@
         android:layout_marginStart="10dp">
 
         <TextView
-            android:id="@+id/namalv"
+            android:id="@+id/kode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/kontaklv"
+            android:id="@+id/nama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/alamatlv"
+            android:id="@+id/waktu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/emaillv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/telplv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </LinearLayout>
