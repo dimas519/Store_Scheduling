@@ -27,6 +27,7 @@ import com.dimas519.storescheduling.Model.Pelanggan;
 import com.dimas519.storescheduling.Model.Produk;
 import com.dimas519.storescheduling.View.FSSP.Fssp_Fragment;
 import com.dimas519.storescheduling.View.FSSP.Result.ResultFragment;
+import com.dimas519.storescheduling.View.Pelanggan.Fragment_Pengguna_Detail;
 import com.dimas519.storescheduling.View.Pelanggan.PenggunaList;
 import com.dimas519.storescheduling.View.Produk.ProdukList;
 import com.dimas519.storescheduling.databinding.ActivityMainBinding;
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
         this.fm.setFragmentResultListener("login", this,this);
         this.fm.setFragmentResultListener("savePelanggan",this,this);
         this.fm.setFragmentResultListener("saveProduk",this,this);
-
+        this.fm.setFragmentResultListener("openPelangganDetail",this,this);
 
 
         setContentView(this.binding.getRoot());
@@ -162,15 +163,22 @@ public class MainActivity extends AppCompatActivity implements
         }else if(requestKey.equals("savePelanggan")){
             String strPelanggan=result.getString("data");
             Pelanggan pelanggan=gson.fromJson(strPelanggan,Pelanggan.class);
-            this.db.insertPelanggan(pelanggan);
+            long id=this.db.insertPelanggan(pelanggan);
+            pelanggan.setId(id);
             ((PenggunaList) this.fragments[Pages.pagesListPengguna]).addItem(pelanggan);
             this.changePage(Pages.pagesListPengguna);
         }else if(requestKey.equals("saveProduk")){
             String strProduk=result.getString("data");
             Produk produk=gson.fromJson(strProduk,Produk.class);
-            this.db.insertProduk(produk);
+            long id=this.db.insertProduk(produk);
+            produk.setId(id);
             ((ProdukList) this.fragments[Pages.pagesListProduk]).addItem(produk);
             this.changePage(Pages.pagesListProduk);
+        }else if(requestKey.equals("openPelangganDetail")){
+            String strPelanggan=result.getString("detail");
+            Pelanggan curr=gson.fromJson(strPelanggan,Pelanggan.class);
+            this.fragments[Pages.pagesDetailPengguna]=new Fragment_Pengguna_Detail(curr);
+            this.changePage(Pages.pagesDetailPengguna);
         }
 
 

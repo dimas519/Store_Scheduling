@@ -2,7 +2,7 @@ package com.dimas519.storescheduling.Code;
 
 public class Pages {
 
-    public final static int numOfPages=9;
+    public final static int numOfPages=12;
 
     public final static int Login_Page=0;
     public final static int Main_Page=1;
@@ -13,6 +13,11 @@ public class Pages {
     public final static int pagesListPemesanan=6;
     public final static int pagesListPengaturan=7;
     public final static int about=8;
+
+    public final static int pagesDetailPengguna=9;
+    public final static int pagesDetailProduk=10;
+    public final static int pagesDetailProcess=11;
+
 
 
 

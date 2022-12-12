@@ -1,6 +1,8 @@
 package com.dimas519.storescheduling.View.Pelanggan;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class PenggunaList extends Fragment implements View.OnClickListener {
+public class PenggunaList extends Fragment implements View.OnClickListener,iPelanggan {
     private FragmentListPageBinding binding;
 
     private  ArrayList<Pelanggan> pelangganArrayList;
@@ -36,14 +38,14 @@ public class PenggunaList extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding=FragmentListPageBinding.inflate(inflater);
         //setAdapter
         this.binding.lvTampilan.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        this.adapter=new PelangganAdapter(this.pelangganArrayList);
+        this.adapter=new PelangganAdapter(this.pelangganArrayList,this);
         this.binding.lvTampilan.setAdapter(adapter);
 
 
@@ -58,4 +60,10 @@ public class PenggunaList extends Fragment implements View.OnClickListener {
     }
 
 
+    @Override
+    public void openDetail(String pelanggan) {
+        Bundle bundle=new Bundle();
+        bundle.putString("detail",pelanggan);
+        getParentFragmentManager().setFragmentResult("openPelangganDetail",bundle);
+    }
 }

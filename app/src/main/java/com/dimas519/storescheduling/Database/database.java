@@ -73,18 +73,8 @@ public class database extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS Log");
     }
 
-    public void create(){
-        SQLiteDatabase db=this.getWritableDatabase();
-//        db.execSQL("DROP TABLE IF EXISTS Movies");
-//        db.execSQL("DROP TABLE IF EXISTS Series");
-//        db.execSQL("DROP TABLE IF EXISTS Episode");
-//       db.execSQL(CREATE_TABLE_MOVIES);
-//        db.execSQL(CREATE_TABLE_SERIES);
-     //   db.execSQL(CREATE_TABLE_EPISODE);
 
-    }
-
-    public void insertPelanggan(Pelanggan movie){
+    public long insertPelanggan(Pelanggan movie){
         String nama=movie.getNama();
         String kontak =movie.getKontak();
         String alamat=movie.getAlamat();
@@ -98,7 +88,9 @@ public class database extends SQLiteOpenHelper {
         newData.put("ALAMAT",alamat);
         newData.put("EMAIL",email);
         newData.put("TELEPON",telepon);
-        db.insert(pelangganTable,null,newData);
+        long id=db.insert(pelangganTable,null,newData);
+        db.close();
+        return id;
     }
 
         public ArrayList<Pelanggan> getPelanggan(){
@@ -116,7 +108,7 @@ public class database extends SQLiteOpenHelper {
                 String KONTAK=c.getString(2);
                 String ALAMAT=c.getString(3);
                 String EMAIL=c.getString(4);
-                String TELEPON=c.getString(4);
+                String TELEPON=c.getString(5);
 
 
                 arr.add(new Pelanggan(id,NAMA,KONTAK,ALAMAT,EMAIL,TELEPON));
@@ -128,7 +120,7 @@ public class database extends SQLiteOpenHelper {
     }
 
 
-    public void insertProduk(Produk series){
+    public long insertProduk(Produk series){
         String kode=series.getKode();
         String nama =series.getNama();
         int waktu=series.getWaktu();
@@ -137,7 +129,9 @@ public class database extends SQLiteOpenHelper {
         newData.put("Kode_PRODUK",kode);
         newData.put("NAMA_PRODUK",nama);
         newData.put("WAKTU_PRODUK",waktu);
-        db.insert(produkTable,null,newData);
+        long id=db.insert(produkTable,null,newData);
+        db.close();
+        return id;
     }
 
     public ArrayList<Produk> getProduk(){

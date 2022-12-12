@@ -1,12 +1,12 @@
 package com.dimas519.storescheduling.Model;
 
 public class Produk {
-    private int id;
+    private long id;
     private String kode;
     private String nama;
     private int waktu;
 
-    public Produk(int id, String kode, String nama, int waktu) {
+    public Produk(long id, String kode, String nama, int waktu) {
         this.id = id;
         this.kode = kode;
         this.nama = nama;
@@ -19,11 +19,11 @@ public class Produk {
         this.waktu =Integer.parseInt( waktu);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

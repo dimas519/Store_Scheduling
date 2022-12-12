@@ -16,7 +16,7 @@
 
 
     <!--fssp item-->
-    <string name="spanTItle">Total Waktu</string>
+    <string name="spanTitle">Total Waktu</string>
     <string name="namaTitle">Nama</string>
     <string name="kontakTitle">Kontak</string>
     <string name="alamatTitle">Alamat</string>
@@ -41,12 +41,16 @@
     <!--    pelanggan_modal-->
     <string name="buatPelanggan">Tambah Pelanggan</string>
 
-<!--    produk modal-->
+    <!--    produk modal-->
     <string name="buatProduk">Tambah Produk</string>
     <string name="kodeProduk">Kode Produk</string>
     <string name="namaProduk"> Nama Produk</string>
     <string name="timeProduk">Waktu Proses produk</string>
 
-<!--    produk item-->
 
+    <!--    produk detail-->
+    <string name="btnOrder">Buat Pesanan</string>
+    <string name="btnEdit">Ubah</string>
+    <string name="btnSave">Simpan</string>
+    <string name="btnDelete">Hapus</string>
 </resources>

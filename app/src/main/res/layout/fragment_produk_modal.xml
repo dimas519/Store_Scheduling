@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:minWidth="100dp"
         android:minHeight="450dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="20dp">
 
         <TextView
 

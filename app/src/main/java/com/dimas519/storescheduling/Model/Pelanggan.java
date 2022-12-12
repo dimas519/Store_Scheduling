@@ -1,14 +1,14 @@
 package com.dimas519.storescheduling.Model;
 
 public class Pelanggan {
-    private int id;
+    private long id;
     private String nama;
     private String kontak;
     private String alamat;
     private String email;
     private String telepon;
 
-    public Pelanggan(int id, String nama, String kontak, String alamat, String email, String telepon) {
+    public Pelanggan(long id, String nama, String kontak, String alamat, String email, String telepon) {
         this.id = id;
         this.nama = nama;
         this.kontak = kontak;
@@ -26,11 +26,11 @@ public class Pelanggan {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
