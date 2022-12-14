@@ -53,4 +53,14 @@
     <string name="btnEdit">Ubah</string>
     <string name="btnSave">Simpan</string>
     <string name="btnDelete">Hapus</string>
+    <string name="processTv">Proses Produk</string>
+    <string name="processAddBtn">Add Proses</string>
+
+
+    <!--    process detail-->
+    <string name="buatProcess">Tambah Process</string>
+    <string name="namaProcess">Nama Proses</string>
+    <string name="waktuProses">Durasi (Menit)</string>
+
+
 </resources>

@@ -61,7 +61,7 @@ public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
         binding.algorithm.setText(Algorithm.getAlgorithm(getItem(i).getAlgorithm()));
         Jobs x=getItem(i).getJobs();
         if(x!=null){
-            binding.resultSpan.setText("Make Span: "+getItem(i).getJobs().getMakeSpan());
+            binding.resultSpan.setText(getItem(i).getJobs().getMakeSpan()+"");
 
 
 

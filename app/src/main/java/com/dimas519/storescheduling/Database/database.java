@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 
+import com.dimas519.storescheduling.MainActivity;
 import com.dimas519.storescheduling.Model.Pelanggan;
+import com.dimas519.storescheduling.Model.Process;
 import com.dimas519.storescheduling.Model.Produk;
 
 import java.util.ArrayList;
@@ -33,22 +36,15 @@ public class database extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_PRODUK= "CREATE TABLE "+produkTable +
             " ( ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
             "Kode_PRODUK TEXT , " +
-            "NAMA_PRODUK TEXT ," +
-            "WAKTU_PRODUK TEXT )";
+            "NAMA_PRODUK TEXT )";
 
     private static final String CREATE_TABLE_PROSES= "CREATE TABLE "+prosesTable +
-            " ( ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
-            "KODE_PROSES TEXT , " +
-            "NAMA_PRODUK TEXT ," +
+            "( FK_PRODUK INTEGER , "+
+            "NAMA_PROSES TEXT ," +
+            "URUTAN INTEGER ," +
             "WAKTU_PROSES TEXT )";
 
-    private static final String CREATE_TABLE_LOG="CREATE TABLE Log ("+
-            "ID INTEGER PRIMARY KEY AUTOINCREMENT ," +
-            "AKSI INTEGER , " +
-            "JUDUL TEXT ," +
-            "TABEL INTEGER , " +
-            "TANGGAL DATETIME DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime'))" +
-            ")";
+
 
     public database(Context context){
         super(context,DB_name,null,DB_version);
@@ -119,8 +115,34 @@ public class database extends SQLiteOpenHelper {
         return arr;
     }
 
+    public Produk insertProduk(Bundle res){
+        String json=res.getString("data");
 
-    public long insertProduk(Produk series){
+
+        //insert produk
+        Produk newProduct= MainActivity.gson.fromJson(json,Produk.class);
+        long idNewProduk=this.insertProduk(newProduct);
+
+        //insert proses
+        ArrayList<Process> newProcess=new ArrayList<>();
+        int numOfProcess=res.getInt("numOfProcess");
+
+        for(int i=0;i<numOfProcess;i++){
+            json=res.getString("process"+i);
+            Process x=MainActivity.gson.fromJson(json,Process.class);
+            x.setFkProduk(idNewProduk);
+            newProcess.add(x);
+        }
+
+        newProduct.setProcess(newProcess);
+        this.insertProcess(newProcess);
+
+        return newProduct;
+    }
+
+
+
+    private long insertProduk(Produk series){
         String kode=series.getKode();
         String nama =series.getNama();
         int waktu=series.getWaktu();
@@ -128,7 +150,6 @@ public class database extends SQLiteOpenHelper {
         ContentValues newData=new ContentValues();
         newData.put("Kode_PRODUK",kode);
         newData.put("NAMA_PRODUK",nama);
-        newData.put("WAKTU_PRODUK",waktu);
         long id=db.insert(produkTable,null,newData);
         db.close();
         return id;
@@ -144,18 +165,71 @@ public class database extends SQLiteOpenHelper {
                 int id = Integer.parseInt(c.getString(0));
                 String kode = c.getString(1);
                 String nama = c.getString(2);
-                int waktu=c.getInt(3);
-                Produk x = new Produk(id, kode, nama,waktu);
+                Produk x = new Produk(id, kode, nama);
+
+                ArrayList<Process> currProdukProcess=this.getProcess(id);
+                x.setProcess(currProdukProcess);
 
                 arr.add(x);
             } while (c.moveToNext());
         }
-        System.out.println(arr.size());
         return arr;
+    }
+
+    private void insertProcess(ArrayList<Process> process){
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues newData=new ContentValues();
+
+        for (Process currProses:process){
+            long fk=currProses.getFkProduk();
+            String nama =currProses.getNamaProses();
+            int waktu=currProses.getWaktuProses();
+            int order=currProses.getOrder();
+
+            newData.put("FK_PRODUK",fk);
+            newData.put("NAMA_PROSES",nama);
+            newData.put("URUTAN",order);
+            newData.put("WAKTU_PROSES",waktu);
+
+            db.insert(prosesTable,null,newData);
+        }
+        db.close();
+
     }
 
 
 
+    private ArrayList<Process> getProcess(int fk){
+        String query ="SELECT * FROM "+prosesTable+
+                " WHERE FK_PRODUK = "+fk+
+                " ORDER BY URUTAN ASC";
+        SQLiteDatabase db= this.getWritableDatabase();
+        Cursor c =db.rawQuery(query,null);
+
+        ArrayList <Process> arrProcess=new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                fk =c.getInt(0);
+                String nama = c.getString(1);
+                int urutan=c.getInt(2);
+                int waktu = c.getInt(3);
+                Process x = new Process(fk, nama, urutan,waktu);
+
+                arrProcess.add(x);
+            } while (c.moveToNext());
+        }
+
+        return arrProcess;
+    }
+
+
+
+//    private static final String CREATE_TABLE_PROSES= "CREATE TABLE "+prosesTable +
+//            "( FK_PRODUK INTEGER , "+
+//            "NAMA_PROSES TEXT ," +
+//            "URUTAN INTEGER ," +
+//            "WAKTU_PROSES TEXT )";
 
 //
 //    public void insertEpisode(int fkSeries, int numberEpisode){

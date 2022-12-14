@@ -168,11 +168,8 @@ public class MainActivity extends AppCompatActivity implements
             ((PenggunaList) this.fragments[Pages.pagesListPengguna]).addItem(pelanggan);
             this.changePage(Pages.pagesListPengguna);
         }else if(requestKey.equals("saveProduk")){
-            String strProduk=result.getString("data");
-            Produk produk=gson.fromJson(strProduk,Produk.class);
-            long id=this.db.insertProduk(produk);
-            produk.setId(id);
-            ((ProdukList) this.fragments[Pages.pagesListProduk]).addItem(produk);
+            Produk newProduk=this.db.insertProduk(result);
+            ((ProdukList) this.fragments[Pages.pagesListProduk]).addItem(newProduk);
             this.changePage(Pages.pagesListProduk);
         }else if(requestKey.equals("openPelangganDetail")){
             String strPelanggan=result.getString("detail");
