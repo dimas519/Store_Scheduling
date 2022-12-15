@@ -1,4 +1,4 @@
-package com.dimas519.storescheduling.Database;
+package com.dimas519.storescheduling.Storage.Database;
 
 import android.content.ContentValues;
 import android.content.Context;

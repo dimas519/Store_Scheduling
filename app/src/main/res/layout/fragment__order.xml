@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Order.Fragment_Order">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="100dp"
+        android:minHeight="200dp"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/titleOrder"
+            android:textSize="20dp"
+            android:padding="50dp"
+            android:textAlignment="center"/>
+
+        <Spinner
+            android:id="@+id/dropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+
+
+        <EditText
+            android:id="@+id/jumlah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/jumlahOrder"
+            android:inputType="number"/>
+
+
+
+        <Button
+            android:id="@+id/orderBtn"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btnOrderModal"/>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

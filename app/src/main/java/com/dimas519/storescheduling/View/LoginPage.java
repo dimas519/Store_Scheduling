@@ -1,16 +1,16 @@
-package com.dimas519.storescheduling;
+package com.dimas519.storescheduling.View;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dimas519.storescheduling.Presenter.LoginPresenter;
+import com.dimas519.storescheduling.R;
 import com.dimas519.storescheduling.databinding.FragmentLoginPageBinding;
 
 

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.MainFragment">
+    tools:context=".View.FragmentAbout">
+
 
     <Button
         android:id="@+id/inputBtn"
@@ -21,14 +22,29 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/titleMain"
-            android:textSize="40sp"/>
+            android:text="@string/titleAbout"
+            android:textSize="35sp"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/articleMain"
-            android:textSize="14sp"/>
+            android:text="FCFS"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="NEH"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="FA"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"/>
 
 
 
@@ -36,9 +52,5 @@
 
 
     </LinearLayout>
-
-
-
-
 
 </FrameLayout>

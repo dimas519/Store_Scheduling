@@ -21,12 +21,17 @@ import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Code.Pages;
 import com.dimas519.storescheduling.Code.Permission;
 import com.dimas519.storescheduling.Code.PopUp;
-import com.dimas519.storescheduling.Database.database;
+import com.dimas519.storescheduling.Storage.AppConfiguration;
+import com.dimas519.storescheduling.Storage.Database.database;
 import com.dimas519.storescheduling.Model.Jobs;
 import com.dimas519.storescheduling.Model.Pelanggan;
 import com.dimas519.storescheduling.Model.Produk;
 import com.dimas519.storescheduling.View.FSSP.Fssp_Fragment;
 import com.dimas519.storescheduling.View.FSSP.Result.ResultFragment;
+import com.dimas519.storescheduling.View.FragmentAbout;
+import com.dimas519.storescheduling.View.FragmentSetting;
+import com.dimas519.storescheduling.View.MainFragment;
+import com.dimas519.storescheduling.View.Order.Fragment_Order;
 import com.dimas519.storescheduling.View.Pelanggan.Fragment_Pengguna_Detail;
 import com.dimas519.storescheduling.View.Pelanggan.PenggunaList;
 import com.dimas519.storescheduling.View.Produk.ProdukList;
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public static Gson gson;
 
-
+    private AppConfiguration configuration;
     private database db;
 
 
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements
         this.fm=getSupportFragmentManager();
         this.gson=new Gson();
         this.db=new database(getApplicationContext());
-
+        this.configuration=new AppConfiguration(getApplicationContext());
 
         //
         this.fragments=new Fragment[Pages.numOfPages];
@@ -110,7 +115,14 @@ public class MainActivity extends AppCompatActivity implements
         this.fm.setFragmentResultListener("login", this,this);
         this.fm.setFragmentResultListener("savePelanggan",this,this);
         this.fm.setFragmentResultListener("saveProduk",this,this);
+
         this.fm.setFragmentResultListener("openPelangganDetail",this,this);
+        this.fm.setFragmentResultListener("openProcessDetail",this,this);
+        this.fm.setFragmentResultListener("saveConfiguration",this,this);
+        this.fm.setFragmentResultListener("OrderSomething",this,this);
+
+        this.fm.setFragmentResultListener("addOrder",this,this);
+
 
 
         setContentView(this.binding.getRoot());
@@ -176,6 +188,24 @@ public class MainActivity extends AppCompatActivity implements
             Pelanggan curr=gson.fromJson(strPelanggan,Pelanggan.class);
             this.fragments[Pages.pagesDetailPengguna]=new Fragment_Pengguna_Detail(curr);
             this.changePage(Pages.pagesDetailPengguna);
+        }else if(requestKey.equals("saveConfiguration")){
+            int numOfMachine=result.getInt("machineNumber");
+            this.configuration.saveMachineNumber(numOfMachine);
+        }else if(requestKey.equals("OrderSomething")){
+            String strPelanggan=result.getString("data");
+            Pelanggan curr=gson.fromJson(strPelanggan,Pelanggan.class);
+            this.fragments[Pages.pagesPemesanan]=new Fragment_Order(curr,this.db.getProduk());
+            this.changePage(Pages.pagesPemesanan);
+        }else if(requestKey.equals("addOrder")){
+            String strJson=result.getString("personOrder");
+            Pelanggan pelanggan=gson.fromJson(strJson,Pelanggan.class);
+
+            strJson=result.getString("orderProduk");
+            Produk produk=gson.fromJson(strJson,Produk.class);
+
+            //do logical order
+
+
         }
 
 
@@ -224,9 +254,17 @@ public class MainActivity extends AppCompatActivity implements
         } else if (clickItem==R.id.navOrder){
 
         }else if(clickItem==R.id.navSetting){
-
+            if(this.fragments[Pages.pagesPengaturan]==null){
+                this.fragments[Pages.pagesPengaturan]=new FragmentSetting();
+            }
+            Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.setting));
+            this.changePage(Pages.pagesPengaturan);
         }else if(clickItem==R.id.nav_about){
-
+            if(this.fragments[Pages.about]==null){
+                this.fragments[Pages.about]=new FragmentAbout();
+            }
+            Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.about));
+            this.changePage(Pages.about);
         }
 
 

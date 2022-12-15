@@ -11,22 +11,22 @@
         android:orientation="vertical"
         android:layout_margin="20dp">
 
+
         <TextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buatPelanggan"
-            android:textSize="20dp"
             android:padding="50dp"
-            android:textAlignment="center"/>
-
+            android:text="@string/TitleDetailPelanggan"
+            android:textAlignment="center"
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/namaTitle"
-
+            android:textColor="@color/whitePalette"
 
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/kontakTitle"
-
+            android:textColor="@color/whitePalette"
 
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/alamatTitle"
             android:lines="5"
-
+            android:textColor="@color/whitePalette"
 
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/emailTitle"
-
+            android:textColor="@color/whitePalette"
 
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/telpTitle"
-
+            android:textColor="@color/whitePalette"
 
 
             android:focusable="false"

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Penjadwalan Produksi</string>
 
+    <!--    Main Fragment-->
+    <string name="titleMain">Penjadwalan \nProduksi</string>
+    <string name="articleMain">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
+
+
     <!--    login Pages-->
     <string name="loginTitle">Masuk</string>
     <string name="usernameEditText">User Name</string>
@@ -9,11 +14,10 @@
     <string name="wrongLogin">username atau password salah</string>
 
     <!--    Fragment Result-->
-    <string name="mesinHeader">Nomor Mesin</string>
+    <string name="mesinHeader">Proses</string>
     <string name="startHeader">Waktu Mulai</string>
     <string name="endHeader">Waktu Selesai</string>
     <string name="jobBottom">Pekerjaan ke:</string>
-
 
     <!--fssp item-->
     <string name="spanTitle">Total Waktu</string>
@@ -26,8 +30,10 @@
     <string name="simpan">Simpan</string>
 
     <!--    Fragment Pelanggan-->
-    <string name="createBtn">Create</string>
+    <string name="createBtn">Tambah Baru</string>
 
+<!--       Fragment Pelanggan Detail-->
+    <string name="TitleDetailPelanggan">Detail Pelanggan</string>
 
     <!--    menu drawer-->
     <string name="optHome">Home</string>
@@ -37,16 +43,14 @@
     <string name="optSetting">Pengaturan</string>
     <string name="optAbout">About</string>
 
-
     <!--    pelanggan_modal-->
     <string name="buatPelanggan">Tambah Pelanggan</string>
 
     <!--    produk modal-->
-    <string name="buatProduk">Tambah Produk</string>
-    <string name="kodeProduk">Kode Produk</string>
-    <string name="namaProduk"> Nama Produk</string>
-    <string name="timeProduk">Waktu Proses produk</string>
-
+    <string name="buatProduk">Tambah Proses</string>
+    <string name="kodeProduk">Kode Proses</string>
+    <string name="namaProduk"> Nama Proses</string>
+    <string name="timeProduk">Waktu (menit)</string>
 
     <!--    produk detail-->
     <string name="btnOrder">Buat Pesanan</string>
@@ -56,11 +60,21 @@
     <string name="processTv">Proses Produk</string>
     <string name="processAddBtn">Add Proses</string>
 
-
     <!--    process detail-->
     <string name="buatProcess">Tambah Process</string>
     <string name="namaProcess">Nama Proses</string>
     <string name="waktuProses">Durasi (Menit)</string>
+
+    <!--    order modal-->
+    <string name="titleOrder">Tambah Pesanan Baru</string>
+    <string name="jumlahOrder">Jumlah</string>
+    <string name="btnOrderModal">Pesan</string>
+
+    <!--    about page-->
+    <string name="titleAbout">Algoritma\nDigunakan</string>
+
+    <!--    setting-->
+    <string name="mesinConf">Jumlah Mesin</string>
 
 
 </resources>

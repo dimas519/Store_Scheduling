@@ -10,8 +10,8 @@ public class Pages {
     public final static int detailPages=3;
     public final static int pagesListPengguna=4;
     public final static int pagesListProduk=5;
-    public final static int pagesListPemesanan=6;
-    public final static int pagesListPengaturan=7;
+    public final static int pagesPemesanan=6;
+    public final static int pagesPengaturan=7;
     public final static int about=8;
 
     public final static int pagesDetailPengguna=9;

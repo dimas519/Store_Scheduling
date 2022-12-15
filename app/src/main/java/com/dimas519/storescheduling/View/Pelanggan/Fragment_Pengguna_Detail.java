@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.dimas519.storescheduling.MainActivity;
 import com.dimas519.storescheduling.Model.Pelanggan;
 
 import com.dimas519.storescheduling.R;
@@ -41,6 +42,7 @@ public class Fragment_Pengguna_Detail extends Fragment implements View.OnClickLi
         this.binding.orderBtn.setOnClickListener(this);
         this.binding.btnEdit.setOnClickListener(this);
         this.binding.btnDelete.setOnClickListener(this);
+
 
 
         return this.binding.getRoot();
@@ -81,7 +83,23 @@ public class Fragment_Pengguna_Detail extends Fragment implements View.OnClickLi
 
             }
 
+        }else if(view ==this.binding.orderBtn){
+            String json= MainActivity.gson.toJson(this.currPelanggan);
+
+            Bundle bundle=new Bundle();
+            bundle.putString("data",json);
+
+            getParentFragmentManager().setFragmentResult("OrderSomething",bundle);
+
+
+
+
+
         }
+
+
+
+
     }
 
 

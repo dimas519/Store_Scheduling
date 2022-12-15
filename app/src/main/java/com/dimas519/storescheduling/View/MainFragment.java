@@ -1,4 +1,4 @@
-package com.dimas519.storescheduling;
+package com.dimas519.storescheduling.View;
 
 import android.app.Activity;
 
