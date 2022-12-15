@@ -21,6 +21,7 @@ import com.dimas519.storescheduling.Code.Algorithm;
 import com.dimas519.storescheduling.Code.Pages;
 import com.dimas519.storescheduling.Code.Permission;
 import com.dimas519.storescheduling.Code.PopUp;
+import com.dimas519.storescheduling.Model.Pesanan;
 import com.dimas519.storescheduling.Storage.AppConfiguration;
 import com.dimas519.storescheduling.Storage.Database.database;
 import com.dimas519.storescheduling.Model.Jobs;
@@ -166,11 +167,16 @@ public class MainActivity extends AppCompatActivity implements
         if(requestKey.equals("show result")){
             fragments[Pages.resultPage]= Fssp_Fragment.newInstance(result.getString("filePath"));
             changePage(Pages.resultPage);
-            Objects.requireNonNull(getSupportActionBar()).setTitle("Algorithm Result");
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Hasil Perhitungan");
         }else if(requestKey.equals("show details")){
             String json=result.getString("result");
             Jobs jobs=gson.fromJson(json,Jobs.class);
-            fragments[Pages.detailPages]=new ResultFragment(jobs);
+
+
+            //not good
+            ArrayList<Pesanan> pesananArrayList=this.db.getAllPesanan();
+
+            fragments[Pages.detailPages]=new ResultFragment(jobs,pesananArrayList);
             changePage(Pages.detailPages);
             Objects.requireNonNull(getSupportActionBar()).setTitle(Algorithm.getAlgorithm(result.getInt("algorithm"))+" Result");
         }else if(requestKey.equals("login")) {
@@ -215,10 +221,10 @@ public class MainActivity extends AppCompatActivity implements
 
             this.changePage(Pages.pagesPemesanan);
         }else if(requestKey.equals("ProcessData")){
-
-
-            OrderLogic.createTxt(this.db.getAllPesanan());
-
+            String filePath=OrderLogic.createTxt(this.db.getAllPesanan());
+            fragments[Pages.resultPage]= Fssp_Fragment.newInstance(filePath);
+            changePage(Pages.resultPage);
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Algorithm Result");
 
 
         }else if(requestKey.equals("openProdukDetail")){

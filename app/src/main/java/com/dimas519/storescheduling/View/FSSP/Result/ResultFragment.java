@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 
 import com.dimas519.storescheduling.Model.Jobs;
 import com.dimas519.storescheduling.Model.Machine;
+import com.dimas519.storescheduling.Model.Pesanan;
 import com.dimas519.storescheduling.databinding.FragmentResultBinding;
+
+import java.util.ArrayList;
 
 
 public class ResultFragment extends Fragment implements View.OnClickListener {
@@ -22,10 +25,12 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
 
 
     private final Jobs jobs;
+    private ArrayList<Pesanan> pesananArrayList;
     private int idx=1;
 
-    public ResultFragment(Jobs x) {
+    public ResultFragment(Jobs x, ArrayList<Pesanan> pesananArrayList) {
         this.jobs=x;
+        this.pesananArrayList=pesananArrayList;
     }
 
 
@@ -41,7 +46,7 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
 
 
         this.adapter=new ResultFragmentAdapter[jobs.getNumberOfJob()];
-
+        this.binding.namaPelanggan.setText(pesananArrayList.get(idx-1).getPelanggan().getNama());
         initAdapter(0);
 
 
@@ -64,6 +69,10 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
                 this.binding.btnNext.setVisibility(View.GONE);
             }
             this.binding.btnBack.setVisibility(View.VISIBLE);
+
+
+
+
         }else if(view==this.binding.btnBack){
             this.idx-=1;
             if(idx==1){
@@ -75,7 +84,7 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
         this.initAdapter(idx-1);
         this.binding.lvResult.setAdapter(this.adapter[idx-1]);
 
-
+        this.binding.namaPelanggan.setText(pesananArrayList.get(idx-1).getPelanggan().getNama());
 
 
 
@@ -86,10 +95,10 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
         return this.jobs.getJKerjaan()[idx].getMachine();
     }
 
+
     private void initAdapter(int idx){
         if(this.adapter[idx]==null) {
-            System.out.println("tesing init:"+idx);
-            this.adapter[idx] = new ResultFragmentAdapter(getMachine(idx));
+            this.adapter[idx] = new ResultFragmentAdapter(getMachine(idx), pesananArrayList.get(idx));
         }
     }
 

@@ -9,16 +9,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dimas519.storescheduling.Model.Machine;
+import com.dimas519.storescheduling.Model.Pesanan;
+import com.dimas519.storescheduling.Model.Process;
+import com.dimas519.storescheduling.Model.Produk;
 import com.dimas519.storescheduling.R;
 
 
 public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAdapter.ViewHolder>{
     private final Machine[] machine;
+    private Produk Produk;
 
 
 
-    public ResultFragmentAdapter(Machine[] machine){
+    public ResultFragmentAdapter(Machine[] machine,Pesanan pesanan){
         this.machine=machine;
+        this.Produk=pesanan.getProduk();
     }
 
 
@@ -33,7 +38,7 @@ public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setData(this.machine[position]);
+        holder.setData(this.machine[position],this.Produk.getProcess().get(position));
     }
 
     @Override
@@ -59,8 +64,8 @@ public class ResultFragmentAdapter extends RecyclerView.Adapter<ResultFragmentAd
         }
 
         @SuppressLint("SetTextI18n")
-        public void setData(Machine currMachine) {
-            this.machineNumber.setText(currMachine.getId()+"");
+        public void setData(Machine currMachine, Process process) {
+            this.machineNumber.setText(process.getNamaProses());
             this.startTime.setText(currMachine.getStart()+"");
             this.endTime.setText(currMachine.getEnd()+"");
         }

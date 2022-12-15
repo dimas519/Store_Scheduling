@@ -69,6 +69,9 @@ public class FsspAdapter extends BaseAdapter implements iFSSPAdapter {
 
                 Bundle bundle=new Bundle();
                 String test= gson.toJson(x);
+
+
+
                 bundle.putString("result",test);
                 bundle.putInt("algorithm",getItem(i).getAlgorithm());
 

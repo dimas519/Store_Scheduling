@@ -18,9 +18,6 @@ public class Fssp_Fragment extends Fragment {
     private static final String ARG_FILEPATH = "filePath";
     private String filePath;
 
-    public Fssp_Fragment() {
-        // Required empty public constructor
-    }
 
 
     public static Fssp_Fragment newInstance(String param1) {

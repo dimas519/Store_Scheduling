@@ -10,8 +10,31 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/header"
+            android:id="@+id/identity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/identitiy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/namaPelanggan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_below="@id/identity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
