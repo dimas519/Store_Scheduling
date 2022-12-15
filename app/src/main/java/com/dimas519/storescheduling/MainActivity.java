@@ -32,13 +32,17 @@ import com.dimas519.storescheduling.View.FragmentAbout;
 import com.dimas519.storescheduling.View.FragmentSetting;
 import com.dimas519.storescheduling.View.MainFragment;
 import com.dimas519.storescheduling.View.Order.Fragment_Order;
+import com.dimas519.storescheduling.View.Order.OrderLogic;
+import com.dimas519.storescheduling.View.Order.Pemesanan.FragmentPesanan;
 import com.dimas519.storescheduling.View.Pelanggan.Fragment_Pengguna_Detail;
 import com.dimas519.storescheduling.View.Pelanggan.PenggunaList;
+import com.dimas519.storescheduling.View.Produk.Fragment_produk_detail;
 import com.dimas519.storescheduling.View.Produk.ProdukList;
 import com.dimas519.storescheduling.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -122,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements
         this.fm.setFragmentResultListener("OrderSomething",this,this);
 
         this.fm.setFragmentResultListener("addOrder",this,this);
-
+        this.fm.setFragmentResultListener("ProcessData",this,this);
+        this.fm.setFragmentResultListener("openProdukDetail",this,this);
 
 
         setContentView(this.binding.getRoot());
@@ -203,9 +208,25 @@ public class MainActivity extends AppCompatActivity implements
             strJson=result.getString("orderProduk");
             Produk produk=gson.fromJson(strJson,Produk.class);
 
-            //do logical order
+            int quantity=result.getInt("quantity");
+
+            this.db.insertOrder(pelanggan,produk,quantity);
+            Toast.makeText(getApplicationContext(), "Order Berhasil", Toast.LENGTH_SHORT).show();
+
+            this.changePage(Pages.pagesPemesanan);
+        }else if(requestKey.equals("ProcessData")){
 
 
+            OrderLogic.createTxt(this.db.getAllPesanan());
+
+
+
+        }else if(requestKey.equals("openProdukDetail")){
+            String json=result.getString("detail");
+            Produk currProduk=gson.fromJson(json,Produk.class);
+
+            this.fragments[Pages.pagesDetailProduk]=new Fragment_produk_detail(currProduk);
+            this.changePage(Pages.pagesDetailProduk);
         }
 
 
@@ -252,7 +273,15 @@ public class MainActivity extends AppCompatActivity implements
             Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.produkpopUp));
             this.changePage(Pages.pagesListProduk);
         } else if (clickItem==R.id.navOrder){
+            if(this.fragments[Pages.pagesPemesanan]==null){
+                this.fragments[Pages.pagesPemesanan]=new FragmentPesanan(this.db.getAllPesanan());
+            }
+            Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.order));
+            this.changePage(Pages.pagesPemesanan);
 
+
+
+            this.db.getAllPesanan();
         }else if(clickItem==R.id.navSetting){
             if(this.fragments[Pages.pagesPengaturan]==null){
                 this.fragments[Pages.pagesPengaturan]=new FragmentSetting();

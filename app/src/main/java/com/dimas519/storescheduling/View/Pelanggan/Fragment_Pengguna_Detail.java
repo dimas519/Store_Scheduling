@@ -83,6 +83,7 @@ public class Fragment_Pengguna_Detail extends Fragment implements View.OnClickLi
 
             }
 
+
         }else if(view ==this.binding.orderBtn){
             String json= MainActivity.gson.toJson(this.currPelanggan);
 

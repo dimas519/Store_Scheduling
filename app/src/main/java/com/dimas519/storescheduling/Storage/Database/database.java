@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.dimas519.storescheduling.MainActivity;
 import com.dimas519.storescheduling.Model.Pelanggan;
+import com.dimas519.storescheduling.Model.Pesanan;
 import com.dimas519.storescheduling.Model.Process;
 import com.dimas519.storescheduling.Model.Produk;
 
@@ -16,14 +18,14 @@ import java.util.ArrayList;
 
 
 public class database extends SQLiteOpenHelper {
-    private static int DB_version=7;
+    private static int DB_version=8;
     private static String DB_name="lisTify.db";
 
 
     private final static String pelangganTable="Pelanggan";
     private final static String produkTable="Produk";
     private final static String prosesTable="Proses";
-
+    private final static String orderTable="orderTable";
 
     private static  final String CREATE_TABLE_PELANGGAN= "CREATE TABLE "+pelangganTable+
             " ( ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
@@ -44,6 +46,11 @@ public class database extends SQLiteOpenHelper {
             "URUTAN INTEGER ," +
             "WAKTU_PROSES TEXT )";
 
+    private static final String CREATE_TABLE_Order= "CREATE TABLE "+orderTable +
+            "( ID INTEGER PRIMARY KEY AUTOINCREMENT  , "+
+            "FK_PELANGGAN INTEGER ," +
+            "FK_PRODUK INTEGER ," +
+            "QUANTITY INTEGER )";
 
 
     public database(Context context){
@@ -57,6 +64,7 @@ public class database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_PELANGGAN);
         db.execSQL(CREATE_TABLE_PRODUK);
         db.execSQL(CREATE_TABLE_PROSES);
+        db.execSQL(CREATE_TABLE_Order);
     }
 
     @Override
@@ -65,7 +73,8 @@ public class database extends SQLiteOpenHelper {
 //        db.execSQL( query);
 //        query="DROP TABLE IF EXISTS Series";
 //        db.execSQL(query);
-//        db.execSQL("DROP TABLE IF EXISTS Episode");
+        db.execSQL("DROP TABLE IF EXISTS "+orderTable);
+        db.execSQL(CREATE_TABLE_Order);
 //        db.execSQL("DROP TABLE IF EXISTS Log");
     }
 
@@ -145,7 +154,6 @@ public class database extends SQLiteOpenHelper {
     private long insertProduk(Produk series){
         String kode=series.getKode();
         String nama =series.getNama();
-        int waktu=series.getWaktu();
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues newData=new ContentValues();
         newData.put("Kode_PRODUK",kode);
@@ -223,27 +231,76 @@ public class database extends SQLiteOpenHelper {
         return arrProcess;
     }
 
+    public void insertOrder(Pelanggan pelanggan,Produk produk,int quantity){
+
+        SQLiteDatabase db=this.getWritableDatabase();
+
+        ContentValues newData=new ContentValues();
+        newData.put("FK_PELANGGAN", pelanggan.getId());
+        newData.put("FK_PRODUK",produk.getId());
+        newData.put("QUANTITY",quantity);
+        db.insert(this.orderTable,null,newData);
+
+    }
+
+    public ArrayList <Pesanan> getAllPesanan(){
+        String query ="SELECT * FROM "+orderTable+
+                " INNER JOIN "+pelangganTable+
+                    " ON "+orderTable+".FK_PELANGGAN="+pelangganTable+".ID"+
+                        " INNER JOIN "+produkTable+
+                            " ON "+produkTable+".ID="+orderTable+".FK_PRODUK";
+
+        SQLiteDatabase db= this.getWritableDatabase();
+        Cursor c =db.rawQuery(query,null);
+        String allKolom[]=c.getColumnNames();
+
+        for(String kolom:allKolom){
+            System.out.println(kolom);
+        }
 
 
-//    private static final String CREATE_TABLE_PROSES= "CREATE TABLE "+prosesTable +
-//            "( FK_PRODUK INTEGER , "+
-//            "NAMA_PROSES TEXT ," +
-//            "URUTAN INTEGER ," +
-//            "WAKTU_PROSES TEXT )";
+        ArrayList <Pesanan> pesananArrayList=new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
 
-//
-//    public void insertEpisode(int fkSeries, int numberEpisode){
-//        SQLiteDatabase db=this.getWritableDatabase();
-//        for(int i=1;i<=numberEpisode;i++) {
-//            ContentValues newData=new ContentValues();
-//            newData.put("JUDUL", "EPISODE " +i);
-//            newData.put("BINTANG",0);
-//            newData.put("FKSERIES",fkSeries);
-//            db.insert("Episode",null,newData);
-//        }
-//    }
-//
-//
+                //kolom pelanggan
+                int id=c.getInt(4);
+                String nama=c.getString(5);
+                String kontak=c.getString(6);
+                String alamat=c.getString(7);
+                String email=c.getString(8);
+                String telepon=c.getString(9);
+
+                Pelanggan curPelanggan=new Pelanggan(id,nama,kontak,alamat,email,telepon);
+                System.out.println("db"+curPelanggan.getNama());
+
+                //buat Produk
+                id=c.getInt(10);
+                kontak=c.getString(11);//nama
+                nama=c.getString(12); //kode
+
+                Produk curProduct=new Produk(id,kontak,nama);
+
+                //kolom pesanan
+                id=c.getInt(0);
+                int fkProduk=c.getInt(2);
+                int quantity=c.getInt(3);
+
+                ArrayList<Process> newProcess=this.getProcess(fkProduk);
+                curProduct.setProcess(newProcess);
+
+                Pesanan curPesanan=new Pesanan(id,curPelanggan,curProduct,quantity);
+
+                pesananArrayList.add(curPesanan);
+            } while (c.moveToNext());
+        }
+
+
+        return pesananArrayList;
+    }
+
+
+
 //
 //    public int getLastIDInserted(){
 //        String query="SELECT ID FROM Series ORDER BY ID DESC LIMIT 1";
@@ -329,7 +386,6 @@ public class database extends SQLiteOpenHelper {
 //        }
 //        return "";
 //    }
-//
 
 
 }

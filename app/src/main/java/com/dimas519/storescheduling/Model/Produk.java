@@ -6,8 +6,12 @@ public class Produk {
     private long id;
     private String kode;
     private String nama;
-    private int waktu;
     private ArrayList<Process> process;
+
+    public Produk(String kode, String nama ) {
+        this.kode = kode;
+        this.nama = nama;
+    }
 
     public Produk(long id, String kode, String nama) {
         this.id = id;
@@ -16,9 +20,11 @@ public class Produk {
 
     }
 
-    public Produk(String kode, String nama ) {
+    public Produk(long id, String kode, String nama, ArrayList<Process> process) {
+        this.id = id;
         this.kode = kode;
         this.nama = nama;
+        this.process = process;
     }
 
     public long getId() {
@@ -45,13 +51,6 @@ public class Produk {
         this.nama = nama;
     }
 
-    public int getWaktu() {
-        return this.waktu;
-    }
-
-    public void setWaktu(int waktu) {
-        this.waktu = waktu;
-    }
 
     public ArrayList<Process> getProcess() {
         return this.process;

@@ -52,10 +52,24 @@
 
             />
 
-        <TextView
-            android:id="@+id/waktu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/waktuInfo"/>
+
+
+            <TextView
+                android:id="@+id/waktuProses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,22 +98,7 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/processTv"
-                android:textColor="@color/dark"
-                android:layout_centerVertical="true"
-                android:textSize="10dp"/>
-
-
-
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

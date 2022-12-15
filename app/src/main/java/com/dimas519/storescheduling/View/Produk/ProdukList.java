@@ -17,7 +17,7 @@ import com.dimas519.storescheduling.databinding.FragmentListPageBinding;
 import java.util.ArrayList;
 
 
-public class ProdukList extends Fragment implements View.OnClickListener {
+public class ProdukList extends Fragment implements View.OnClickListener,iProduk {
 
     private  ArrayList<Produk> ProdukArrayList;
     private  ProdukAdapter adapter;
@@ -45,7 +45,7 @@ public class ProdukList extends Fragment implements View.OnClickListener {
 
 
 
-        this.adapter=new ProdukAdapter(this.ProdukArrayList);
+        this.adapter=new ProdukAdapter(this.ProdukArrayList,this);
         binding.lvTampilan.setAdapter(adapter);
 
 
@@ -60,4 +60,13 @@ public class ProdukList extends Fragment implements View.OnClickListener {
     }
 
 
+    @Override
+    public void openDetail(String produk) {
+
+        Bundle bundle=new Bundle();
+        bundle.putString("detail",produk);
+        getParentFragmentManager().setFragmentResult("openProdukDetail",bundle);
+
+
+    }
 }
