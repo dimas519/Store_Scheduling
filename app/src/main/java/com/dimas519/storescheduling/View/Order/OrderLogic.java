@@ -25,7 +25,10 @@ public class OrderLogic {
             int jumlahOrder=pesananArrayList.size();
             int jumlahProses=pesananArrayList.get(0).getProduk().getProcess().size();
 
-            int arr[][]=new int[jumlahOrder][jumlahProses];
+
+
+            int arr[][]=new int[jumlahProses][jumlahOrder];
+
             int j=0;
             for (Pesanan currPesanan: pesananArrayList){
                 int qty=currPesanan.getQuantity();
@@ -33,6 +36,7 @@ public class OrderLogic {
                 int i=0;
                 for (Process currProses: p.getProcess()){
                     arr[i][j]=(currProses.getWaktuProses()*qty);
+
                     i++;
                 }
 
@@ -41,7 +45,7 @@ public class OrderLogic {
             }
 
             OutputStream outputStream = new FileOutputStream(fileTemp);
-            outputStream.write((jumlahProses+", "+jumlahOrder+"\n").getBytes());
+            outputStream.write((jumlahOrder+", "+jumlahProses+"\n").getBytes());
 
 
             for(int i=0;i<jumlahProses;i++){

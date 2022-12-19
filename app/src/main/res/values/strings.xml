@@ -48,9 +48,9 @@
     <string name="buatPelanggan">Tambah Pelanggan</string>
 
     <!--    produk modal-->
-    <string name="buatProduk">Tambah Proses</string>
-    <string name="kodeProduk">Kode Proses</string>
-    <string name="namaProduk"> Nama Proses</string>
+    <string name="buatProduk">Tambah Produk</string>
+    <string name="kodeProduk">Kode Produk</string>
+    <string name="namaProduk"> Nama Produk</string>
     <string name="timeProduk">Waktu (menit)</string>
 
     <!--    produk detail-->

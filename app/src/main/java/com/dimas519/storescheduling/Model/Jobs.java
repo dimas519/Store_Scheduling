@@ -6,21 +6,11 @@ public class Jobs {
     protected Kerjaan[] kerjaan;
     protected double makeSpan=-1.0;
 
-
-
-    public Jobs(int numberOfJob, double makeSpan){
-        this.kerjaan=new Kerjaan[numberOfJob];
-        this.makeSpan=makeSpan;
-    }
-
     public Jobs(){}
-
-
 
     public int getNumberOfJob() {
         return this.kerjaan.length;
     }
-
 
 
     public Kerjaan[] getJKerjaan() {

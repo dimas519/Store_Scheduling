@@ -79,6 +79,11 @@ package com.dimas519.storescheduling.LLH_FSSP;
         public double getDueDate(){
             return this.due_date;
         }
+
+
+        public double getTotProcTime(){
+            return this.totProcTime;
+        }
     }
 
 

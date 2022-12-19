@@ -5,8 +5,6 @@ public class Kerjaan {
     protected int jobNumber;
     protected Machine[] machine;
 
-
-
     public Kerjaan(int jobNumber, Machine[] machine){
         this.jobNumber=jobNumber;
         this.machine=machine;

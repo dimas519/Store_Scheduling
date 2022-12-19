@@ -52,6 +52,7 @@ public class Fssp_Fragment extends Fragment {
 //                ,new FsspAlgorithm(Algorithm.DANNENBRING,this.filePath,adapter)
 //                ,new FsspAlgorithm(Algorithm.POUR,this.filePath,adapter)
 //                ,new FsspAlgorithm(Algorithm.MOD,this.filePath,adapter)
+                ,new FsspAlgorithm(Algorithm.FA,this.filePath,adapter)
         };
 
         adapter.setArray(fsspAlgorithms);

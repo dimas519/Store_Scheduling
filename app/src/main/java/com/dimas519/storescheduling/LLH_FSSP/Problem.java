@@ -112,7 +112,7 @@ public class Problem {
             String [] jm = line.split(separator);
             System.out.println("Banyak job ="+jm[0]);
             System.out.println("Banyak mesin ="+jm[1]);
-            System.out.println("Banyak operasi ="+jm[2]);
+      //      System.out.println("Banyak operasi ="+jm[2]);
 //            System.out.println("Batas atas ="+jm[4]);
 
             this.JOB_NUM = Integer.parseInt(jm[0].trim());

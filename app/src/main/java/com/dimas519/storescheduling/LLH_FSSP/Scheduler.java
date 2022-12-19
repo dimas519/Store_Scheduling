@@ -7,9 +7,13 @@ package com.dimas519.storescheduling.LLH_FSSP;/*
  * @author Heni
  */
 
+
 import com.dimas519.storescheduling.Model.Jobs;
 import com.dimas519.storescheduling.Model.Kerjaan;
 import com.dimas519.storescheduling.Model.Machine;
+
+
+
 
 public class Scheduler {
     /////////////////////////////////////////////////////////////////////
@@ -81,6 +85,38 @@ public class Scheduler {
 
 
     }
+
+
+//    public Schedule FA(){
+////        Schedule sch;
+////        Scheduling = new Slot [P.JOB_NUM][P.MACHINE_NUM];
+////
+////
+////        fa fa=new fa(this.P,1,0.1,1,100);
+////
+////
+////        Scheduling=fa.getSlots();
+////
+////
+////
+////        this.sch=s;
+////        return ss;
+////
+////
+////
+////
+////        sch=fa.getSchedule();
+////
+////        sch.setMakeSpan(Scheduling[P.JOB_NUM-1][P.MACHINE_NUM-1].finish);
+////        this.printScheduling(Scheduling, sch);
+////        return sch;
+//
+//    }
+
+
+
+
+
 
     public void printScheduling(Slot [][] slot, Schedule sch){
 

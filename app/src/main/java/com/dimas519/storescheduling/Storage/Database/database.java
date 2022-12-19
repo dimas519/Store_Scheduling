@@ -252,11 +252,11 @@ public class database extends SQLiteOpenHelper {
 
         SQLiteDatabase db= this.getWritableDatabase();
         Cursor c =db.rawQuery(query,null);
-        String allKolom[]=c.getColumnNames();
-
-        for(String kolom:allKolom){
-            System.out.println(kolom);
-        }
+//        String allKolom[]=c.getColumnNames();
+//
+//        for(String kolom:allKolom){
+//            System.out.println(kolom);
+//        }
 
 
         ArrayList <Pesanan> pesananArrayList=new ArrayList<>();
@@ -272,7 +272,7 @@ public class database extends SQLiteOpenHelper {
                 String telepon=c.getString(9);
 
                 Pelanggan curPelanggan=new Pelanggan(id,nama,kontak,alamat,email,telepon);
-                System.out.println("db"+curPelanggan.getNama());
+//                System.out.println("db"+curPelanggan.getNama());
 
                 //buat Produk
                 id=c.getInt(10);
