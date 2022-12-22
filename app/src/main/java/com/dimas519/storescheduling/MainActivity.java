@@ -129,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements
         this.fm.setFragmentResultListener("addOrder",this,this);
         this.fm.setFragmentResultListener("ProcessData",this,this);
         this.fm.setFragmentResultListener("openProdukDetail",this,this);
+        this.fm.setFragmentResultListener("deleteOrder",this,this);
+        this.fm.setFragmentResultListener("moreOrder",this,this);
 
 
         setContentView(this.binding.getRoot());
@@ -199,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements
             Pelanggan curr=gson.fromJson(strPelanggan,Pelanggan.class);
             this.fragments[Pages.pagesDetailPengguna]=new Fragment_Pengguna_Detail(curr);
             this.changePage(Pages.pagesDetailPengguna);
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Pelanggan");
         }else if(requestKey.equals("saveConfiguration")){
             int numOfMachine=result.getInt("machineNumber");
             this.configuration.saveMachineNumber(numOfMachine);
@@ -220,9 +223,12 @@ public class MainActivity extends AppCompatActivity implements
             Toast.makeText(getApplicationContext(), "Order Berhasil", Toast.LENGTH_SHORT).show();
 
             this.changePage(Pages.pagesPemesanan);
+
+            this.fragments[Pages.pagesListPemesanan]=null;
+
         }else if(requestKey.equals("ProcessData")){
             String filePath=OrderLogic.createTxt(this.db.getAllPesanan());
-            fragments[Pages.resultPage]= Fssp_Fragment.newInstance(filePath);
+            this.fragments[Pages.resultPage]= Fssp_Fragment.newInstance(filePath);
             changePage(Pages.resultPage);
             Objects.requireNonNull(getSupportActionBar()).setTitle("Algorithm Result");
 
@@ -233,6 +239,14 @@ public class MainActivity extends AppCompatActivity implements
 
             this.fragments[Pages.pagesDetailProduk]=new Fragment_produk_detail(currProduk);
             this.changePage(Pages.pagesDetailProduk);
+        }else if(requestKey.equals("deleteOrder")){
+            this.db.deleteAllPesanan();
+        }else if(requestKey.equals("moreOrder")){
+            if(this.fragments[Pages.pagesListPengguna]==null ){
+                this.fragments[Pages.pagesListPengguna]=new PenggunaList(this.db.getPelanggan());
+            }
+            this.changePage(Pages.pagesListPengguna);
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Pilih Pelanggan");
         }
 
 
@@ -279,11 +293,11 @@ public class MainActivity extends AppCompatActivity implements
             Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.produkpopUp));
             this.changePage(Pages.pagesListProduk);
         } else if (clickItem==R.id.navOrder){
-            if(this.fragments[Pages.pagesPemesanan]==null){
-                this.fragments[Pages.pagesPemesanan]=new FragmentPesanan(this.db.getAllPesanan());
+            if(this.fragments[Pages.pagesListPemesanan]==null){
+                this.fragments[Pages.pagesListPemesanan]=new FragmentPesanan(this.db.getAllPesanan());
             }
             Objects.requireNonNull(getSupportActionBar()).setTitle(PopUp.getAlgorithm(PopUp.order));
-            this.changePage(Pages.pagesPemesanan);
+            this.changePage(Pages.pagesListPemesanan);
 
 
 

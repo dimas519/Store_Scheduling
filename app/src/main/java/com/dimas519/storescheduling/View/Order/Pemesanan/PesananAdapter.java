@@ -17,12 +17,16 @@ import com.dimas519.storescheduling.R;
 import java.util.ArrayList;
 
 public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHolder>{
-    private final ArrayList<Pesanan> pesananArrayList;
+    private ArrayList<Pesanan> pesananArrayList;
 
 
     public PesananAdapter(ArrayList<Pesanan> pesananArrayList){
         this.pesananArrayList=pesananArrayList;
 
+    }
+
+    public void setPesananArrayList(ArrayList<Pesanan> pesananArrayList){
+        this.pesananArrayList=pesananArrayList;
     }
 
 

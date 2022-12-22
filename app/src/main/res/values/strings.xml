@@ -81,6 +81,8 @@
 <!--    Pesanan Fragment-->
     <string name="numOfPesanan">Jumlah pesanan:</string>
     <string name="prosesBtn">Proses Pesanan</string>
+    <string name="tambahPemesananBtn">Tambah Pesanan</string>
+    <string name="hapusPesananBtn">Hapus Seluruh Pesanan</string>
 
 <!--    pesanan item-->
     <string name="pesanItemNama">Nama Pemesan</string>

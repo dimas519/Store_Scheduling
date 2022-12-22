@@ -301,17 +301,12 @@ public class database extends SQLiteOpenHelper {
 
 
 
-//
-//    public int getLastIDInserted(){
-//        String query="SELECT ID FROM Series ORDER BY ID DESC LIMIT 1";
-//        int lastIndex=-1;
-//        SQLiteDatabase db= this.getWritableDatabase();
-//        Cursor c=db.rawQuery(query,null);
-//        if(c!=null && c.moveToFirst()){
-//            lastIndex=c.getInt(0);
-//        }
-//        return lastIndex;
-//    }
+
+    public void deleteAllPesanan(){
+        SQLiteDatabase db= this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS "+orderTable);
+        db.execSQL(CREATE_TABLE_Order);
+    }
 //
 //    public ArrayList <MoviesModel> converttoArrayMovies(Cursor c){
 //        ArrayList <MoviesModel> arr=new ArrayList<>();
